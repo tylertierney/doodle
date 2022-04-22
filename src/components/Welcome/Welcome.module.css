@@ -1,0 +1,16 @@
+.welcomeBackground{
+    max-width: 800px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.welcomeContainer{
+    width: 90%;
+    height: 90%;
+    padding: 1rem;
+}
+
+p{
+    margin: 1rem 0;
+}

@@ -1,0 +1,15 @@
+.gameHomeBackground{
+    max-width: 800px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.gameHomeContainer{
+    width: 90%;
+    height: 90%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
