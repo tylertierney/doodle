@@ -1,7 +1,8 @@
 import CanvasDraw from "react-canvas-draw";
 import { useRef } from "react";
 import socket from "../../socket";
-import { useGame } from "../../context/GameContext";
+import { useGame, GameContextType } from "../../context/GameContext";
+import { useEffect } from "react";
 
 const Canvas: React.FC = () => {
   const { ipAddress, turns } = useGame();
@@ -9,8 +10,20 @@ const Canvas: React.FC = () => {
 
   const sendDrawingToWebsocket = () => {
     const drawingData = canvasRef.current?.getSaveData();
-    socket.emit("draw", drawingData, ipAddress);
+    socket.emit("draw", drawingData);
   };
+
+  useEffect(() => {
+    let existingGame: GameContextType | null = null;
+    const gameFromLocal: string | null = localStorage.getItem("doodle-context");
+    if (gameFromLocal) {
+      existingGame = JSON.parse(gameFromLocal);
+      const drawingData = existingGame?.turns[turns.length - 1]?.drawing;
+      if (canvasRef.current && drawingData) {
+        canvasRef.current.loadSaveData(drawingData);
+      }
+    }
+  }, []);
 
   return (
     <div>

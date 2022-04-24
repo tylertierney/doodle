@@ -77,7 +77,14 @@ const GameProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("doodle-context", JSON.stringify(ctx));
-  }, [players.length, ipAddress, gameStage, turns.length, currentPlayer]);
+  }, [
+    players.length,
+    ipAddress,
+    gameStage,
+    turns.length,
+    currentPlayer,
+    turns[turns.length - 1]?.drawing,
+  ]);
 
   const ctx: GameContextType = {
     players,

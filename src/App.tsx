@@ -17,7 +17,12 @@ function App() {
   const [drawingData, setDrawingData] = useState("");
 
   useEffect(() => {
-    socket.on("draw", (drawingData: string) => {
+    // socket.on("draw", (drawingData: string) => {
+    //   setDrawingData(drawingData);
+    // });
+    socket.on("draw", (drawingData: string, turns: Turn[]) => {
+      console.log(turns[turns.length - 1]);
+      setTurns(turns);
       setDrawingData(drawingData);
     });
     socket.on("createLobby", (players: any) => {

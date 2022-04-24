@@ -1,17 +1,11 @@
-import { Button, Stack, Text, Title } from "@mantine/core";
-import { useGame, Player } from "../../context/GameContext";
+import { Stack } from "@mantine/core";
+import { useGame } from "../../context/GameContext";
 import PaperSVG from "../PaperSVG/PaperSVG";
 import styles from "./GameHome.module.css";
 import Canvas from "../Canvas/Canvas";
 import ReceivingCanvas from "../ReceivingCanvas/ReceivingCanvas";
 import Sidebar from "./Sidebar/Sidebar";
-import { BsArrowRightCircle } from "react-icons/bs";
-import socket from "../../socket";
-import { Loader } from "@mantine/core";
-import GradientBtn from "../GradientBtn/GradientBtn";
 import Lobby from "../Lobby/Lobby";
-import { useEffect, useState } from "react";
-import { Turn } from "../../context/GameContext";
 
 interface GameHomeProps {
   drawingData: string;
@@ -27,8 +21,6 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
 
   const activeTurn = turns[turns.length - 1];
   const isArtist = currentPlayer?.id === activeTurn?.artist?.id;
-  console.log(isArtist);
-  console.log(activeTurn);
 
   return (
     <Stack
@@ -48,7 +40,6 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
             ) : (
               <ReceivingCanvas drawingData={drawingData} />
             )}
-            {/* <Canvas /> */}
           </>
         )}
         <Sidebar players={rightSidePlayers} />
