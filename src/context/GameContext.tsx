@@ -6,12 +6,13 @@ export interface Player {
   nickname: string;
   selectedCharacter: CharacterObj;
   isVIP: boolean;
+  id: string;
 }
 
 export interface Turn {
   word: string;
   drawing: string;
-  player: Player;
+  artist: Player;
   guesses: string[];
   active: boolean;
 }
@@ -24,6 +25,8 @@ export interface GameContextType {
   setGameStage: (gameStage: string) => void;
   turns: Turn[];
   setTurns: (turns: Turn[]) => void;
+  currentPlayer: null | Player;
+  setCurrentPlayer: (currentPlayer: Player | null) => void;
 }
 
 const initial: GameContextType = {
@@ -34,6 +37,8 @@ const initial: GameContextType = {
   setGameStage: () => "initial",
   turns: [],
   setTurns: () => [],
+  currentPlayer: null,
+  setCurrentPlayer: () => {},
 };
 
 export const GameContext = createContext<GameContextType>(initial);
@@ -43,6 +48,7 @@ const GameProvider: React.FC = ({ children }) => {
   const [gameStage, setGameStage] = useState("initial");
   const [players, setPlayers] = useState<Player[]>([]);
   const [turns, setTurns] = useState<Turn[]>([]);
+  const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
 
   const getIpAddress = async () => {
     socket.on("ipAddress", (ipAddress) => {
@@ -54,6 +60,25 @@ const GameProvider: React.FC = ({ children }) => {
     getIpAddress();
   }, []);
 
+  useEffect(() => {
+    let existingGame: GameContextType | null = null;
+    const gameFromLocal: string | null = localStorage.getItem("doodle-context");
+    if (gameFromLocal) {
+      existingGame = JSON.parse(gameFromLocal);
+      if (existingGame?.currentPlayer) {
+        setCurrentPlayer(existingGame.currentPlayer);
+        setGameStage(existingGame.gameStage);
+        setPlayers(existingGame.players);
+        setIpAddress(existingGame.ipAddress);
+        setTurns(existingGame.turns);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("doodle-context", JSON.stringify(ctx));
+  }, [players.length, ipAddress, gameStage, turns.length, currentPlayer]);
+
   const ctx: GameContextType = {
     players,
     setPlayers,
@@ -62,6 +87,8 @@ const GameProvider: React.FC = ({ children }) => {
     setGameStage,
     turns,
     setTurns,
+    currentPlayer,
+    setCurrentPlayer,
   };
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>;
 };

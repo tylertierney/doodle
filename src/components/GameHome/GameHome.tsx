@@ -8,6 +8,10 @@ import Sidebar from "./Sidebar/Sidebar";
 import { BsArrowRightCircle } from "react-icons/bs";
 import socket from "../../socket";
 import { Loader } from "@mantine/core";
+import GradientBtn from "../GradientBtn/GradientBtn";
+import Lobby from "../Lobby/Lobby";
+import { useEffect, useState } from "react";
+import { Turn } from "../../context/GameContext";
 
 interface GameHomeProps {
   drawingData: string;
@@ -15,16 +19,16 @@ interface GameHomeProps {
 }
 
 const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
-  const { players, setGameStage } = useGame();
+  const { players, turns, currentPlayer } = useGame();
 
   const half = Math.ceil(players.length / 2);
   const leftSidePlayers = players.slice(0, half);
   const rightSidePlayers = players.slice(half, players.length);
 
-  const handleStart = () => {
-    socket.emit("startGame");
-    setGameStage("playing");
-  };
+  const activeTurn = turns[turns.length - 1];
+  const isArtist = currentPlayer?.id === activeTurn?.artist?.id;
+  console.log(isArtist);
+  console.log(activeTurn);
 
   return (
     <Stack
@@ -36,60 +40,15 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
       <div className={styles.gameHomeContainer}>
         <Sidebar players={leftSidePlayers} />
         {stage === "waitingForPlayers" ? (
-          <div
-            style={{
-              minWidth: "400px",
-              minHeight: "400px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "1rem",
-            }}
-          >
-            <Title order={2}>
-              <span
-                style={{
-                  color: "orange",
-                  textDecoration: "underline",
-                  fontSize: "1.9rem",
-                }}
-              >
-                {players.length}
-              </span>
-              &nbsp;player
-              {players.length > 1 && <span>s</span>} in the lobby
-            </Title>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ fontSize: "1.4rem" }}>
-                Waiting for others to join...
-              </Text>
-              <Loader size="xl" color="orange" variant="dots" />
-            </div>
-            <Button
-              variant="gradient"
-              gradient={{ from: "orange", to: "yellow" }}
-              size="lg"
-              radius="md"
-              fullWidth={true}
-              rightIcon={<BsArrowRightCircle size="1.4rem" />}
-              // onClick={() => setGameStage("playing")}
-              onClick={() => handleStart()}
-            >
-              Start Game!
-            </Button>
-          </div>
+          <Lobby />
         ) : (
           <>
-            <Canvas />
-            <ReceivingCanvas drawingData={drawingData} />
+            {isArtist ? (
+              <Canvas />
+            ) : (
+              <ReceivingCanvas drawingData={drawingData} />
+            )}
+            {/* <Canvas /> */}
           </>
         )}
         <Sidebar players={rightSidePlayers} />

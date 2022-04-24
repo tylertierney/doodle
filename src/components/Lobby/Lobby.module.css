@@ -1,5 +1,23 @@
-.lobbyContainer{
-    width: 100vw;
-    height: 100vh;
-    max-width: 1000px;
+.waitingForPlayersContainer{
+    min-width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.playerCount{
+    color: orange;
+    text-decoration: underline;
+    font-size: 1.9rem;
+}
+
+.waitingForPlayersMessageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
 }

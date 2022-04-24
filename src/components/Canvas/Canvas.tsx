@@ -21,7 +21,13 @@ const Canvas: React.FC = () => {
           overflow: "hidden",
         }}
       >
-        <CanvasDraw ref={canvasRef} brushColor="green" brushRadius={3} />
+        <CanvasDraw
+          ref={canvasRef}
+          brushColor="green"
+          brushRadius={3}
+          lazyRadius={0}
+          onChange={(e) => socket.emit("draw", e.getSaveData(), ipAddress)}
+        />
       </div>
       <button onClick={() => sendDrawingToWebsocket()}>test</button>
       <button onClick={() => console.log(turns)}>test2</button>

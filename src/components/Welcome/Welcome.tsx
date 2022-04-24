@@ -4,6 +4,7 @@ import { Button, Group, Stack, Text, Title } from "@mantine/core";
 import { BiPlusCircle } from "react-icons/bi";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { useGame } from "../../context/GameContext";
+import GradientBtn from "../GradientBtn/GradientBtn";
 
 const Welcome: React.FC = () => {
   const { setGameStage } = useGame();
@@ -41,16 +42,13 @@ const Welcome: React.FC = () => {
           >
             Join Game
           </Button>
-          <Button
-            variant="gradient"
-            gradient={{ from: "orange", to: "yellow" }}
-            size="lg"
-            radius="md"
+          <GradientBtn
+            fullWidth={false}
             rightIcon={<BiPlusCircle size="1.7rem" />}
             onClick={() => setGameStage("characterSelect_creating_game")}
           >
             Create New Game
-          </Button>
+          </GradientBtn>
         </Group>
       </Stack>
     </Stack>

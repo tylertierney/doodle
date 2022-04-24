@@ -6,13 +6,14 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { Player, useGame } from "../../context/GameContext";
 import { GiQueenCrown } from "react-icons/gi";
 import socket from "../../socket";
+import GradientBtn from "../GradientBtn/GradientBtn";
 
 interface CharacterSelectProps {
   existingGame: boolean;
 }
 
 const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
-  const { setGameStage } = useGame();
+  const { setGameStage, setCurrentPlayer, gameStage } = useGame();
   const [charactersArr, setCharactersArr] =
     useState<CharacterObj[]>(characters);
   const [nickname, setNickname] = useState("");
@@ -26,12 +27,18 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     );
   };
 
+  const generateId = () => {
+    return (Math.random() + 1).toString(36).substring(7);
+  };
+
   const handleSubmit = () => {
     const playerObj: Player = {
       nickname,
       selectedCharacter,
       isVIP: existingGame ? false : true,
+      id: generateId(),
     };
+    setCurrentPlayer(playerObj);
     existingGame
       ? socket.emit("joinLobby", playerObj)
       : socket.emit("createLobby", playerObj);
@@ -43,27 +50,9 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
   })[0];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100vw",
-        height: "100%",
-        maxWidth: "1000px",
-        gap: "1rem",
-      }}
-    >
-      <div className={styles.container}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            flexWrap: "wrap-reverse",
-          }}
-        >
+    <div className={styles.pageContainer}>
+      <div className={styles.menuContainer}>
+        <div className={styles.wrappingContainer}>
           <Stack style={{ flexGrow: 1 }}>
             <Stack spacing="xs" style={{ marginBottom: "1rem" }}>
               <Title order={2} style={{ margin: 0, color: "white" }}>
@@ -89,13 +78,9 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                       onClick={() => handleCharacterSelect(item.name)}
                       key={idx}
                       src={item.icon}
-                      width="70px"
-                      height="70px"
+                      className={styles.characterIcons}
                       style={{
                         backgroundColor: item.color,
-                        borderRadius: "50%",
-                        padding: "0.3rem",
-                        cursor: "pointer",
                         border: item.isSelected ? "4px solid white" : "none",
                         boxShadow: item.isSelected
                           ? "2px 2px 14px 1px rgba(0, 0, 0, 0.3)"
@@ -118,15 +103,12 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
             }}
           >
             <img
+              className={styles.selectedCharacterImg}
               src={selectedCharacter?.icon}
               style={{
                 backgroundColor: selectedCharacter?.color,
-                borderRadius: "100%",
-                border: "solid white 3px",
                 margin: 0,
               }}
-              width="140px"
-              height="140px"
             />
             <Text
               weight="bold"
@@ -141,29 +123,29 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
         </div>
       </div>
       <div
-        className={styles.container}
+        className={`${styles.menuContainer} ${styles.goToLobbyMenu}`}
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          color: "white",
+          justifyContent:
+            gameStage === "characterSelect_creating_game"
+              ? "space-between"
+              : "flex-end",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-          <GiQueenCrown fontSize="2rem" />
-          <Text style={{ lineHeight: "1rem" }}>
-            You are the VIP, so you'll have control over the game options
-          </Text>
-        </div>
-        <Button
-          variant="gradient"
-          gradient={{ from: "orange", to: "yellow" }}
-          size="lg"
-          radius="md"
+        {gameStage === "characterSelect_creating_game" && (
+          <div className={styles.iconAndText}>
+            <GiQueenCrown fontSize="2rem" />
+            <Text style={{ lineHeight: "1rem" }}>
+              You are the VIP, so you'll have control over the game options
+            </Text>
+          </div>
+        )}
+        <GradientBtn
+          fullWidth={false}
           rightIcon={<BsArrowRightCircle size="1.4rem" />}
           onClick={() => handleSubmit()}
         >
           Go To Lobby
-        </Button>
+        </GradientBtn>
       </div>
     </div>
   );

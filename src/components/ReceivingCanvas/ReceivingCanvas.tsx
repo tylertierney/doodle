@@ -15,7 +15,19 @@ const ReceivingCanvas: React.FC<ReceivingCanvasProps> = ({ drawingData }) => {
     }
   }, [drawingData]);
 
-  return <CanvasDraw disabled={true} ref={canvasRef} />;
+  return (
+    <div>
+      <div
+        style={{
+          borderRadius: "10px",
+          backgroundColor: "white",
+          overflow: "hidden",
+        }}
+      >
+        <CanvasDraw disabled={true} ref={canvasRef} />
+      </div>
+    </div>
+  );
 };
 
 export default ReceivingCanvas;

@@ -1,4 +1,15 @@
-.container{
+.pageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100%;
+    max-width: 1000px;
+    gap: 1rem;
+}
+
+.menuContainer{
     background-color: rgba(71, 38, 6, 0.482);
     width: 94%;
     padding: 1rem;
@@ -6,6 +17,13 @@
     box-shadow: 6px 6px 20px 1px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur(1px);
+}
+
+.wrappingContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap-reverse;
 }
 
 .nicknameInput{
@@ -25,4 +43,31 @@
 
 .nicknameInput::placeholder{
     color: rgba(255, 255, 255, 0.724);
+}
+
+.characterIcons{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+
+.selectedCharacterImg{
+    border-radius: 100%;
+    width: 140px;
+    height: 140px;
+    border: solid white 4px;
+}
+
+.goToLobbyMenu{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.iconAndText{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
 }
