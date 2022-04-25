@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { CharacterObj } from "../components/CharacterSelect/characters";
 import socket from "../socket";
+import { getLocalStorage } from "../utils/utils";
 
 export interface Player {
   nickname: string;
@@ -61,22 +62,30 @@ const GameProvider: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    let existingGame: GameContextType | null = null;
-    const gameFromLocal: string | null = localStorage.getItem("doodle-context");
+    let existingGame = null;
+    // const gameFromLocal: string | null = localStorage.getItem("doodle-context");
+    const gameFromLocal = getLocalStorage();
     if (gameFromLocal) {
-      existingGame = JSON.parse(gameFromLocal);
-      if (existingGame?.currentPlayer) {
-        setCurrentPlayer(existingGame.currentPlayer);
-        setGameStage(existingGame.gameStage);
-        setPlayers(existingGame.players);
-        setIpAddress(existingGame.ipAddress);
-        setTurns(existingGame.turns);
+      // existingGame = JSON.parse(gameFromLocal);
+      if (gameFromLocal?.currentPlayer) {
+        setCurrentPlayer(gameFromLocal.currentPlayer);
+        setGameStage(gameFromLocal.gameStage);
+        setPlayers(gameFromLocal.players);
+        setIpAddress(gameFromLocal.ipAddress);
+        setTurns(gameFromLocal.turns);
       }
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("doodle-context", JSON.stringify(ctx));
+    const context = {
+      players,
+      ipAddress,
+      gameStage,
+      turns,
+      currentPlayer,
+    };
+    localStorage.setItem("doodle-context", JSON.stringify(context));
   }, [
     players.length,
     ipAddress,

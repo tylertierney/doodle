@@ -21,7 +21,7 @@ function App() {
     //   setDrawingData(drawingData);
     // });
     socket.on("draw", (drawingData: string, turns: Turn[]) => {
-      console.log(turns[turns.length - 1]);
+      console.log(turns[turns.length - 1].drawing.length);
       setTurns(turns);
       setDrawingData(drawingData);
     });

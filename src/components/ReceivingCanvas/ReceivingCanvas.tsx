@@ -24,7 +24,14 @@ const ReceivingCanvas: React.FC<ReceivingCanvasProps> = ({ drawingData }) => {
           overflow: "hidden",
         }}
       >
-        <CanvasDraw disabled={true} ref={canvasRef} />
+        <CanvasDraw
+          disabled={true}
+          ref={canvasRef}
+          // brushRadius={0}
+          // lazyRadius={0}
+          hideInterface={true}
+          hideGrid={true}
+        />
       </div>
     </div>
   );
