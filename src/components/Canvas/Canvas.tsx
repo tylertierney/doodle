@@ -5,14 +5,14 @@ import { useGame } from "../../context/GameContext";
 import { useEffect } from "react";
 import { getLocalStorage } from "../../utils/utils";
 
-const Canvas: React.FC = () => {
-  const { ipAddress, turns, currentPlayer } = useGame();
-  const canvasRef = useRef<CanvasDraw>(null);
+interface CanvasProps {
+  brushRadius: number;
+  brushColor: string;
+}
 
-  const sendDrawingToWebsocket = () => {
-    const drawingData = canvasRef.current?.getSaveData();
-    socket.emit("draw", drawingData);
-  };
+const Canvas: React.FC<CanvasProps> = ({ brushRadius, brushColor }) => {
+  const { turns, currentPlayer } = useGame();
+  const canvasRef = useRef<CanvasDraw>(null);
 
   useEffect(() => {
     const existingGame = getLocalStorage();
@@ -35,15 +35,15 @@ const Canvas: React.FC = () => {
       >
         <CanvasDraw
           ref={canvasRef}
-          brushColor="green"
-          brushRadius={3}
+          brushColor={brushColor}
+          brushRadius={brushRadius}
+          catenaryColor={brushColor}
           lazyRadius={0}
-          onChange={(e) => socket.emit("draw", e.getSaveData(), ipAddress)}
+          onChange={(e) => socket.emit("draw", e.getSaveData())}
           immediateLoading={true}
         />
       </div>
-      <button onClick={() => sendDrawingToWebsocket()}>test</button>
-      <button onClick={() => console.log(turns)}>test2</button>
+      <button onClick={() => console.log(turns)}>turns</button>
     </div>
   );
 };

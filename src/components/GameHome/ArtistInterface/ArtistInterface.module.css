@@ -1,0 +1,12 @@
+.artistInterfaceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wordToDrawContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+}

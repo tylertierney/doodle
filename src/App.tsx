@@ -12,14 +12,25 @@ import { Player, Turn, useGame } from "./context/GameContext";
 import socket from "./socket";
 
 function App() {
-  const { gameStage, setGameStage, setPlayers, setTurns, currentPlayer } =
-    useGame();
+  const {
+    gameStage,
+    setGameStage,
+    setPlayers,
+    setTurns,
+    currentPlayer,
+    setCurrentPlayer,
+  } = useGame();
   const [drawingData, setDrawingData] = useState("");
 
+  const endGame = () => {
+    localStorage.removeItem("doodle-context");
+    setPlayers([]);
+    setGameStage("initial");
+    setTurns([]);
+    setCurrentPlayer(null);
+  };
+
   useEffect(() => {
-    // socket.on("draw", (drawingData: string) => {
-    //   setDrawingData(drawingData);
-    // });
     socket.on("draw", (drawingData: string, turns: Turn[]) => {
       console.log(turns[turns.length - 1].drawing.length);
       setTurns(turns);
@@ -34,6 +45,9 @@ function App() {
     socket.on("startGame", (turns: Turn[]) => {
       if (currentPlayer) setGameStage("playing");
       setTurns(turns);
+    });
+    socket.on("endGame", () => {
+      endGame();
     });
   }, [currentPlayer?.id]);
 
@@ -57,9 +71,9 @@ function App() {
   return (
     <div>
       {getGameSection(gameStage)}
-      <button onClick={() => localStorage.removeItem("doodle-context")}>
-        clear data
-      </button>
+      {currentPlayer?.isVIP && (
+        <button onClick={() => socket.emit("endGame")}>end game</button>
+      )}
     </div>
   );
 }

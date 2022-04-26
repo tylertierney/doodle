@@ -6,6 +6,7 @@ import Canvas from "../Canvas/Canvas";
 import ReceivingCanvas from "../ReceivingCanvas/ReceivingCanvas";
 import Sidebar from "./Sidebar/Sidebar";
 import Lobby from "../Lobby/Lobby";
+import ArtistInterface from "./ArtistInterface/ArtistInterface";
 
 interface GameHomeProps {
   drawingData: string;
@@ -22,6 +23,8 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
   const activeTurn = turns[turns.length - 1];
   const isArtist = currentPlayer?.id === activeTurn?.artist?.id;
 
+  const wordToDraw = turns[turns.length - 1]?.word.split("");
+
   return (
     <Stack
       align="center"
@@ -36,7 +39,7 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
         ) : (
           <>
             {isArtist ? (
-              <Canvas />
+              <ArtistInterface wordToDraw={wordToDraw} />
             ) : (
               <ReceivingCanvas drawingData={drawingData} />
             )}

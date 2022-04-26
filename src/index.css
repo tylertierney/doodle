@@ -3,17 +3,13 @@
   --offWhite: #fcfcfc;
 }
 
-/* #root{
-  display: flex;
-  justify-content: center;
-} */
-
 body {
   margin: 0;
   padding: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(255, 235, 144);
+  /* background-color: rgb(255, 235, 144); */
+  background-color: rgb(255, 196, 128);
   background-image: url('assets/svg/cloud.svg');
   background-repeat: repeat;
   background-size: 100px;
