@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Text, Title } from "@mantine/core";
+import { Group, Stack, Text, Title } from "@mantine/core";
 import styles from "./CharacterSelect.module.css";
 import { CharacterObj, characters } from "./characters";
 import { useState } from "react";
@@ -49,11 +49,17 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     return item.isSelected;
   })[0];
 
+  const crownBadge = (
+    <div className="crownBadge">
+      <GiQueenCrown style={{ width: "75%", height: "75%" }} />
+    </div>
+  );
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.menuContainer}>
         <div className={styles.wrappingContainer}>
-          <Stack style={{ flexGrow: 1 }}>
+          <Stack style={{ flexGrow: 1, width: "50%" }}>
             <Stack spacing="xs" style={{ marginBottom: "1rem" }}>
               <Title order={2} style={{ margin: 0, color: "white" }}>
                 Choose a nickname
@@ -96,10 +102,10 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
             align="center"
             justify="center"
             style={{
-              flexGrow: 1,
               gap: 0,
               minWidth: "300px",
               minHeight: "180px",
+              width: "50%",
             }}
           >
             <img
@@ -116,6 +122,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
               size="lg"
               color="white"
               style={{ fontSize: "1.6rem", minHeight: "2.2rem" }}
+              className={styles.selectedCharacterText}
             >
               {nickname}
             </Text>
@@ -132,12 +139,12 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
         }}
       >
         {gameStage === "characterSelect_creating_game" && (
-          <div className={styles.iconAndText}>
-            <GiQueenCrown fontSize="2rem" />
-            <Text style={{ lineHeight: "1rem" }}>
+          <>
+            {crownBadge}
+            <Text style={{ fontSize: "1.2rem", flexBasis: "400px" }}>
               You are the VIP, so you'll have control over the game options
             </Text>
-          </div>
+          </>
         )}
         <GradientBtn
           fullWidth={false}

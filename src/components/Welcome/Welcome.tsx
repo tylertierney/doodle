@@ -5,6 +5,7 @@ import { BiPlusCircle } from "react-icons/bi";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { useGame } from "../../context/GameContext";
 import GradientBtn from "../GradientBtn/GradientBtn";
+import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
 
 const Welcome: React.FC = () => {
   const { setGameStage } = useGame();
@@ -17,17 +18,43 @@ const Welcome: React.FC = () => {
         justify="center"
         className={styles.welcomeContainer}
       >
-        <Title align="center" style={{ fontSize: "2.1rem" }} order={1}>
-          Welcome to&nbsp;
-          <span style={{ color: "orange" }}>Doodle!</span>
-        </Title>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+            width: "100%",
+          }}
+        >
+          <Title
+            align="center"
+            style={{ fontSize: "2.1rem", margin: 0 }}
+            order={1}
+          >
+            Welcome to&nbsp;
+          </Title>
+          <KadoodleTextSVG />
+          <Title
+            align="center"
+            style={{
+              fontSize: "3.6rem",
+              margin: 0,
+              transform: "translate(-6px, -3px)",
+              color: "var(--lightorange)",
+            }}
+            order={1}
+          >
+            !
+          </Title>
+        </div>
         <Text
           size="lg"
           align="center"
           style={{ maxWidth: "500px", padding: "0 0.5rem" }}
           component="p"
         >
-          Doodle is a multiplayer guessing game like Pictionary or Drawful.
+          Kadoodle is a multiplayer guessing game like Pictionary or Drawful.
           Friends who are connected to your WiFi network can join your lobby and
           play.
         </Text>

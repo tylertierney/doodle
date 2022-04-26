@@ -26,28 +26,26 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
   const wordToDraw = turns[turns.length - 1]?.word.split("");
 
   return (
-    <Stack
-      align="center"
-      justify="center"
-      className={styles.gameHomeBackground}
-    >
-      <PaperSVG />
-      <div className={styles.gameHomeContainer}>
-        <Sidebar players={leftSidePlayers} />
-        {stage === "waitingForPlayers" ? (
-          <Lobby />
-        ) : (
-          <>
-            {isArtist ? (
+    <div className={styles.gameHomeContainer}>
+      <Sidebar players={leftSidePlayers} />
+      {stage === "waitingForPlayers" ? (
+        <Lobby />
+      ) : (
+        <>
+          {isArtist ? (
+            <div
+              style={{ position: "relative", flexGrow: 1 }}
+              className={styles.artistInterfaceContainer}
+            >
               <ArtistInterface wordToDraw={wordToDraw} />
-            ) : (
-              <ReceivingCanvas drawingData={drawingData} />
-            )}
-          </>
-        )}
-        <Sidebar players={rightSidePlayers} />
-      </div>
-    </Stack>
+            </div>
+          ) : (
+            <ReceivingCanvas drawingData={drawingData} />
+          )}
+        </>
+      )}
+      <Sidebar players={rightSidePlayers} />
+    </div>
   );
 };
 

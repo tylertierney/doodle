@@ -28,7 +28,8 @@
 
 .nicknameInput{
     margin: 0;
-    background-color: transparent;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.15);
     border: none;
     border-bottom: 2px solid white;
     font-size: 1.3rem;
@@ -60,14 +61,16 @@
     border: solid white 4px;
 }
 
+.selectedCharacterText:empty::before{
+    content: "\200b";
+}
+
 .goToLobbyMenu{
     display: flex;
     justify-content: space-between;
-    color: white;
-}
-
-.iconAndText{
-    display: flex;
     align-items: center;
-    gap: 0.6rem;
+    color: white;
+    position: relative;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }

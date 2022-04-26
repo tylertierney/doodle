@@ -1,15 +1,20 @@
-.gameHomeBackground{
-    max-width: 800px;
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-}
-
 .gameHomeContainer{
-    width: 90%;
-    height: 90%;
-    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.3rem;
     display: flex;
     justify-content: space-around;
+    align-items: flex-start;
+}
+
+.artistInterfaceContainer{
+    background-image: url('../../assets/svg/paper.svg');
+    background-repeat: no-repeat;
+    background-position: 8px;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    height: 100%;
+    min-height: 100vh;
+    min-width: 400px;
 }

@@ -20,25 +20,30 @@ const Lobby: React.FC = () => {
     : "Waiting for host to start...";
 
   return (
-    <div className={styles.waitingForPlayersContainer}>
-      <Title order={1} style={{ margin: 0 }}>
-        <span className={styles.playerCount}>{players.length}</span>
-        &nbsp;player
-        {players.length > 1 && <span>s</span>} in the lobby
-      </Title>
-      <div className={styles.waitingForPlayersMessageContainer}>
-        <Text style={{ fontSize: "1.4rem" }}>{message}</Text>
-        <Loader size="xl" color="orange" variant="dots" />
+    <div className={styles.waitingForPlayersBackground}>
+      <div
+        className={styles.waitingForPlayersContainer}
+        style={{ width: "86%", height: "86%" }}
+      >
+        <Title order={1} style={{ margin: 0 }}>
+          <span className={styles.playerCount}>{players.length}</span>
+          &nbsp;player
+          {players.length > 1 && <span>s</span>} in the lobby
+        </Title>
+        <div className={styles.waitingForPlayersMessageContainer}>
+          <Text style={{ fontSize: "1.4rem" }}>{message}</Text>
+          <Loader size="xl" color="orange" variant="dots" />
+        </div>
+        {currentPlayer?.isVIP && (
+          <GradientBtn
+            fullWidth={true}
+            rightIcon={<BsArrowRightCircle size="1.4rem" />}
+            onClick={() => handleStart()}
+          >
+            Everyone in? Start Game!
+          </GradientBtn>
+        )}
       </div>
-      {currentPlayer?.isVIP && (
-        <GradientBtn
-          fullWidth={true}
-          rightIcon={<BsArrowRightCircle size="1.4rem" />}
-          onClick={() => handleStart()}
-        >
-          Everyone in? Start Game!
-        </GradientBtn>
-      )}
     </div>
   );
 };

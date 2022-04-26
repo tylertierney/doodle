@@ -14,12 +14,13 @@ const GradientBtn: React.FC<GradientBtnProps> = ({
   return (
     <Button
       variant="gradient"
-      gradient={{ from: "orange", to: "yellow" }}
+      gradient={{ from: "var(--orangered)", to: "var(--lightorange)" }}
       size="lg"
       radius="md"
       fullWidth={fullWidth}
       rightIcon={rightIcon}
       onClick={onClick}
+      style={{ marginLeft: "auto" }}
     >
       {children}
     </Button>

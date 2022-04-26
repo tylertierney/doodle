@@ -1,15 +1,22 @@
 *, :root{
   box-sizing: border-box;
   --offWhite: #fcfcfc;
+  --orangered: #ff5100;
+  --lightorange: #ff8400;
+}
+
+#root{
+  width: 100%;
+  height: 100%;
 }
 
 body {
+  height: 100vh;
   margin: 0;
-  padding: 1rem;
+  /* padding: 1rem; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: rgb(255, 235, 144); */
-  background-color: rgb(255, 196, 128);
+  background-color: rgb(255, 235, 144);
   background-image: url('assets/svg/cloud.svg');
   background-repeat: repeat;
   background-size: 100px;
@@ -17,9 +24,40 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1rem 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.crownBadge{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: lightgreen;
+  color: white;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-10deg)
+}
+
+.crownBadgeSmall {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: white;
+  color: gold;
+  position: absolute;
+  top: -6px;
+  left: -14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* transform: rotate(-10deg) */
 }

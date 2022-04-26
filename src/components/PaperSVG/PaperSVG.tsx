@@ -12,7 +12,7 @@ const PaperSVG: React.FC = () => {
         <rect
           style={{
             stroke: "rgba(0, 0, 0, 0.7)",
-            fill: "rgb(252, 252, 252)",
+            fill: "var(--offWhite)",
             strokeWidth: "2px",
           }}
           transform="matrix(0.997564, 0.069756, -0.069756, 0.997564, -1.178663, -32.171173)"

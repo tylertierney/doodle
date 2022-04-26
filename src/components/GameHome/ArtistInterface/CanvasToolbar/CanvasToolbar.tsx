@@ -1,11 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
 import styles from "./CanvasToolbar.module.css";
+import { FaTrashAlt, FaUndo, FaEraser } from "react-icons/fa";
+import { Button } from "@mantine/core";
 
 interface CanvasToolbarProps {
   brushRadius: number;
   setBrushRadius: Dispatch<SetStateAction<number>>;
   brushColor: string;
   setBrushColor: Dispatch<SetStateAction<string>>;
+  clearCanvas: () => void;
+  undo: () => void;
 }
 
 const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
@@ -13,19 +17,19 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   setBrushRadius,
   brushColor,
   setBrushColor,
+  clearCanvas,
+  undo,
 }) => {
   const brushes = [6, 8, 10, 12, 14].map((radius: number, idx: number) => {
+    const isSelected = radius === brushRadius;
     return (
       <div
         key={idx}
+        className={styles.brush}
         style={{
           width: `${Math.floor(radius * 2.5)}px`,
           height: `${Math.floor(radius * 2.5)}px`,
-          borderRadius: "50%",
-          border:
-            radius === brushRadius ? "3px solid orange" : "solid black 1px",
-          outline: radius === brushRadius ? "2px solid white" : "",
-          cursor: "pointer",
+          border: isSelected ? `3px solid ${brushColor}` : "none",
         }}
         onClick={() => setBrushRadius(radius)}
       ></div>
@@ -33,26 +37,26 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   });
 
   const colors = [
-    "red",
+    "#ff604c",
     "blue",
-    "green",
+    "#26eca8",
     "gold",
+    "#00c4ff",
     "orange",
     "purple",
+    "#6158df",
+    "brown",
     "black",
-    "gray",
   ].map((color: string, idx: number) => {
+    const isSelected = color === brushColor;
+
     return (
       <div
         key={idx}
         style={{
-          width: "24px",
-          height: "24px",
-          borderRadius: "50%",
           backgroundColor: color,
-          outline: color === brushColor ? "2px solid white" : "",
-          cursor: "pointer",
         }}
+        className={`${styles.colorBlotch} ${isSelected && styles.selected}`}
         onClick={() => setBrushColor(color)}
       ></div>
     );
@@ -61,6 +65,20 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   return (
     <div className={styles.toolbarContainer}>
       <div className={styles.brushesContainer}>{brushes}</div>
+      <div className={styles.controlsContainer}>
+        <button onClick={() => undo()} className={styles.controlBtn}>
+          <FaUndo fontSize="1.5rem" />
+        </button>
+        <button
+          onClick={() => setBrushColor("#fcfcfc")}
+          className={styles.controlBtn}
+        >
+          <FaEraser fontSize="1.7rem" />
+        </button>
+        <button onClick={() => clearCanvas()} className={styles.controlBtn}>
+          <FaTrashAlt fontSize="1.5rem" />
+        </button>
+      </div>
       <div className={styles.paletteContainer}>{colors}</div>
     </div>
   );

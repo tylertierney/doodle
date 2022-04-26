@@ -7,6 +7,12 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ players }) => {
+  const crownBadge = (
+    <div className="crownBadgeSmall">
+      <GiQueenCrown style={{ width: "75%", height: "75%" }} />
+    </div>
+  );
+
   return (
     <div
       style={{
@@ -34,6 +40,8 @@ const Sidebar: React.FC<SidebarProps> = ({ players }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                position: "relative",
+                gap: "0.3rem",
               }}
             >
               <img
@@ -46,19 +54,19 @@ const Sidebar: React.FC<SidebarProps> = ({ players }) => {
                 width="60px"
                 height="60px"
               />
-              <div
+              {player.isVIP && crownBadge}
+              <Text
+                weight="bold"
+                key={idx}
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "1.2rem",
+                  fontSize: "1.1rem",
+                  backgroundColor: "white",
+                  padding: "0 0.3rem",
+                  borderRadius: "6px",
                 }}
               >
-                {player.isVIP && <GiQueenCrown color="gold" />}
-                <Text weight="bold" key={idx} style={{ fontSize: "1.1rem" }}>
-                  {player.nickname}&nbsp;
-                </Text>
-              </div>
+                {player.nickname}
+              </Text>
             </div>
           </div>
         );
