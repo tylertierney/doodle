@@ -27,4 +27,9 @@ export const words = [
   "sand",
   "store",
   "dentist",
+  "dice",
+  "mouse",
+  "lion",
+  "tennis",
+  "soccer",
 ];

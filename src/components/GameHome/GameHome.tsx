@@ -28,6 +28,7 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
   return (
     <div className={styles.gameHomeContainer}>
       <Sidebar players={leftSidePlayers} />
+      {/* <Sidebar players={rightSidePlayers} /> */}
       {stage === "waitingForPlayers" ? (
         <Lobby />
       ) : (
