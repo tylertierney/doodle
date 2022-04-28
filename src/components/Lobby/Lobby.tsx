@@ -35,13 +35,15 @@ const Lobby: React.FC = () => {
           <Loader size="xl" color="orange" variant="dots" />
         </div>
         {currentPlayer?.isVIP && (
-          <GradientBtn
-            fullWidth={true}
-            rightIcon={<BsArrowRightCircle size="1.4rem" />}
-            onClick={() => handleStart()}
-          >
-            Everyone in? Start Game!
-          </GradientBtn>
+          <div style={{ width: "90%" }}>
+            <GradientBtn
+              fullWidth={true}
+              rightIcon={<BsArrowRightCircle size="1.4rem" />}
+              onClick={() => handleStart()}
+            >
+              Everyone in? Start Game!
+            </GradientBtn>
+          </div>
         )}
       </div>
     </div>

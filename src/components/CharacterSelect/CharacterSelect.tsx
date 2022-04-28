@@ -141,7 +141,13 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
         {gameStage === "characterSelect_creating_game" && (
           <>
             {crownBadge}
-            <Text style={{ fontSize: "1.2rem", flexBasis: "400px" }}>
+            <Text
+              style={{
+                fontSize: "1.2rem",
+                flexBasis: "400px",
+                marginBottom: "0.6rem",
+              }}
+            >
               You are the VIP, so you'll have control over the game options
             </Text>
           </>
@@ -150,6 +156,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
           fullWidth={false}
           rightIcon={<BsArrowRightCircle size="1.4rem" />}
           onClick={() => handleSubmit()}
+          style={{ marginLeft: "auto" }}
         >
           Go To Lobby
         </GradientBtn>

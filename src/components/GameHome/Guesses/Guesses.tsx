@@ -33,15 +33,15 @@ const Guess: FC<GuessProps> = ({ guess, setGuesses }) => {
 
   const wordToGuess = turns[turns.length - 1].word;
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setGuesses((guesses) => guesses.filter((t) => t.id !== guess.id));
-    }, 4000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setGuesses((guesses) => guesses.filter((t) => t.id !== guess.id));
+  //   }, 4000);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [guess.id, removeGuess]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [guess.id, removeGuess]);
 
   const lettersArr = guess.text.split("").map((letter: string, idx: number) => {
     const color = getLetterValue(letter, wordToGuess, idx);

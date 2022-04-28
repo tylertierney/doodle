@@ -7,7 +7,7 @@ const KadoodleTextSVG: FC<KadoodleTextSVGProps> = () => {
     <svg
       viewBox="0 0 500 140"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ maxHeight: "60px" }}
+      style={{ maxHeight: "60px", height: "100%" }}
     >
       <defs>
         <linearGradient

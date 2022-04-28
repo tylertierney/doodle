@@ -25,6 +25,8 @@ const Welcome: React.FC = () => {
             alignItems: "center",
             flexWrap: "wrap",
             width: "100%",
+            padding: "0.6rem 0",
+            margin: "0.6rem 0",
           }}
         >
           <Title
@@ -34,19 +36,21 @@ const Welcome: React.FC = () => {
           >
             Welcome to&nbsp;
           </Title>
-          <KadoodleTextSVG />
-          <Title
-            align="center"
-            style={{
-              fontSize: "3.6rem",
-              margin: 0,
-              transform: "translate(-6px, -3px)",
-              color: "var(--lightorange)",
-            }}
-            order={1}
-          >
-            !
-          </Title>
+          <div style={{ display: "flex", alignItems: "center", height: "80%" }}>
+            <KadoodleTextSVG />
+            <Title
+              align="center"
+              style={{
+                fontSize: "3.6rem",
+                margin: 0,
+                transform: "translate(-6px, -3px)",
+                color: "var(--lightorange)",
+              }}
+              order={1}
+            >
+              !
+            </Title>
+          </div>
         </div>
         <Text
           size="lg"

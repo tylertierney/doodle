@@ -1,16 +1,21 @@
 import { Button } from "@mantine/core";
+import CSS from "csstype";
 
 interface GradientBtnProps {
   fullWidth: boolean;
   rightIcon: React.ReactNode;
   onClick: () => void;
+  style?: CSS.Properties;
 }
 const GradientBtn: React.FC<GradientBtnProps> = ({
   children,
   fullWidth,
   rightIcon,
   onClick,
+  style,
 }) => {
+  console.log({ ...style });
+
   return (
     <Button
       variant="gradient"
@@ -20,7 +25,7 @@ const GradientBtn: React.FC<GradientBtnProps> = ({
       fullWidth={fullWidth}
       rightIcon={rightIcon}
       onClick={onClick}
-      style={{ marginLeft: "auto" }}
+      style={style}
     >
       {children}
     </Button>

@@ -46,6 +46,16 @@ const GuessesProvider: React.FC = ({ children }) => {
   );
 
   useEffect(() => {
+    if (guesses.length > 0) {
+      const timer = setTimeout(
+        () => setGuesses((guesses) => guesses.slice(1)),
+        3000
+      );
+      return () => clearTimeout(timer);
+    }
+  }, [guesses]);
+
+  useEffect(() => {
     socket.on("guess", (guess) => {
       addGuess(guess);
     });

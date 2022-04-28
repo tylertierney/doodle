@@ -39,17 +39,20 @@ const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
                 gap: "0.3rem",
               }}
             >
-              <img
-                src={player.selectedCharacter.icon}
-                style={{
-                  borderRadius: "50%",
-                  backgroundColor: player.selectedCharacter.color,
-                  margin: 0,
-                }}
-                width="60px"
-                height="60px"
-              />
-              {player.isVIP && crownBadge}
+              <div style={{ position: "relative" }}>
+                <img
+                  src={player.selectedCharacter.icon}
+                  style={{
+                    borderRadius: "50%",
+                    backgroundColor: player.selectedCharacter.color,
+                    margin: 0,
+                  }}
+                  width="60px"
+                  height="60px"
+                />
+                {player.isVIP && crownBadge}
+              </div>
+
               <Text
                 weight="bold"
                 key={idx}
