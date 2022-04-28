@@ -1,14 +1,10 @@
-import { Title } from "@mantine/core";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
-import Canvas from "./components/Canvas/Canvas";
 import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
 import GameHome from "./components/GameHome/GameHome";
-import Lobby from "./components/Lobby/Lobby";
-import ReceivingCanvas from "./components/ReceivingCanvas/ReceivingCanvas";
 import Welcome from "./components/Welcome/Welcome";
-import { Player, Turn, useGame } from "./context/GameContext";
+import { Turn, useGame } from "./context/GameContext";
 import socket from "./socket";
 
 function App() {
@@ -32,7 +28,6 @@ function App() {
 
   useEffect(() => {
     socket.on("draw", (drawingData: string, turns: Turn[]) => {
-      console.log(turns[turns.length - 1].drawing.length);
       setTurns(turns);
       setDrawingData(drawingData);
     });

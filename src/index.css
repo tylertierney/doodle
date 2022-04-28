@@ -13,7 +13,6 @@
 body {
   height: 100vh;
   margin: 0;
-  /* padding: 1rem; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(255, 235, 144);
@@ -24,7 +23,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 0 0 1rem 0;
 }
 
 code {
@@ -59,5 +58,5 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transform: rotate(-10deg) */
 }
+

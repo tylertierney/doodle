@@ -14,8 +14,6 @@ const GradientBtn: React.FC<GradientBtnProps> = ({
   onClick,
   style,
 }) => {
-  console.log({ ...style });
-
   return (
     <Button
       variant="gradient"

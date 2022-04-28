@@ -62,11 +62,8 @@ const GameProvider: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    let existingGame = null;
-    // const gameFromLocal: string | null = localStorage.getItem("doodle-context");
     const gameFromLocal = getLocalStorage();
     if (gameFromLocal) {
-      // existingGame = JSON.parse(gameFromLocal);
       if (gameFromLocal?.currentPlayer) {
         setCurrentPlayer(gameFromLocal.currentPlayer);
         setGameStage(gameFromLocal.gameStage);

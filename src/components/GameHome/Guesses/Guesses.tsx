@@ -15,7 +15,7 @@ const Guesses: FC<GuessesProps> = ({ guesses, setGuesses }) => {
   return (
     <div className={styles.guessContainer} data-testid="Guesses">
       {guesses.map((guess: GuessType, idx: number) => {
-        return <Guess key={idx} guess={guess} setGuesses={setGuesses} />;
+        return <Guess key={idx} guess={guess} />;
       })}
     </div>
   );
@@ -25,23 +25,11 @@ export default Guesses;
 
 interface GuessProps {
   guess: GuessType;
-  setGuesses: Dispatch<React.SetStateAction<GuessType[]>>;
 }
-const Guess: FC<GuessProps> = ({ guess, setGuesses }) => {
-  const { removeGuess } = useGuesses();
+const Guess: FC<GuessProps> = ({ guess }) => {
   const { turns } = useGame();
 
   const wordToGuess = turns[turns.length - 1].word;
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setGuesses((guesses) => guesses.filter((t) => t.id !== guess.id));
-  //   }, 4000);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [guess.id, removeGuess]);
 
   const lettersArr = guess.text.split("").map((letter: string, idx: number) => {
     const color = getLetterValue(letter, wordToGuess, idx);
@@ -56,8 +44,10 @@ const Guess: FC<GuessProps> = ({ guess, setGuesses }) => {
 
   return (
     <div
-      className={styles.guess}
-      style={{ color: isCorrect ? "green" : "inherit" }}
+      className={`${styles.guess} ${isCorrect ? styles.bounce : styles.shake}`}
+      style={{
+        color: isCorrect ? "green" : "inherit",
+      }}
     >
       {isCorrect ? <span>I got it!</span> : <span>{lettersArr}</span>}
       <span>-</span>

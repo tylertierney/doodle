@@ -36,7 +36,7 @@ const Welcome: React.FC = () => {
           >
             Welcome to&nbsp;
           </Title>
-          <div style={{ display: "flex", alignItems: "center", height: "80%" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <KadoodleTextSVG />
             <Title
               align="center"

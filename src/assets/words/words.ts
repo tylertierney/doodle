@@ -32,4 +32,5 @@ export const words = [
   "lion",
   "tennis",
   "soccer",
+  "eggplant",
 ];
