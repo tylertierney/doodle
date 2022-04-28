@@ -11,7 +11,6 @@ import pig from "../../assets/svg/pig.svg";
 import rhino from "../../assets/svg/rhino.svg";
 import tiger from "../../assets/svg/tiger.svg";
 import zebra from "../../assets/svg/zebra.svg";
-import { IconType } from "react-icons";
 
 export interface CharacterObj {
   name: string;

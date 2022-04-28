@@ -1,6 +1,4 @@
-import { Stack } from "@mantine/core";
 import { useGame } from "../../context/GameContext";
-import CharacterSelect from "../CharacterSelect/CharacterSelect";
 import styles from "./Lobby.module.css";
 import { Title, Text, Loader } from "@mantine/core";
 import { BsArrowRightCircle } from "react-icons/bs";

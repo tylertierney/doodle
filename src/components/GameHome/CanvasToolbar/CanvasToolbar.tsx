@@ -1,7 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import styles from "./CanvasToolbar.module.css";
 import { FaTrashAlt, FaUndo, FaEraser } from "react-icons/fa";
-import { Button } from "@mantine/core";
 import { useState } from "react";
 import socket from "../../../socket";
 import { useGame } from "../../../context/GameContext";
@@ -94,7 +93,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
     e.preventDefault();
     const guessObj = {
       nickname: currentPlayer?.nickname,
-      text: guess,
+      text: guess.toLowerCase().trim(),
     };
     socket.emit("guess", guessObj);
     setGuess("");

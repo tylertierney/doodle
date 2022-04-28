@@ -15,7 +15,7 @@ export const useCanvasResize = (
         height: Math.floor(rect.height),
       });
     }
-  }, [canvasContainerRef.current]);
+  }, [canvasContainerRef]);
 
   useEffect(() => {
     const resizeCanvas = () => {

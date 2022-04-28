@@ -36,7 +36,6 @@ const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 position: "relative",
-                gap: "0.3rem",
               }}
             >
               <div style={{ position: "relative" }}>

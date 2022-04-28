@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { FC } from "react";
 import { createContext } from "react";
 import Guesses from "../components/GameHome/Guesses/Guesses";
 import socket from "../socket";

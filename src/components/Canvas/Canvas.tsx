@@ -4,7 +4,6 @@ import socket from "../../socket";
 import { useGame } from "../../context/GameContext";
 import { useEffect } from "react";
 import { getLocalStorage } from "../../utils/utils";
-import { useState } from "react";
 import styles from "./Canvas.module.css";
 import useCanvasResize from "../../hooks/useCanvasResize";
 import GuessesProvider from "../../context/GuessesContext";

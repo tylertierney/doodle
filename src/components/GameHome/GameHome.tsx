@@ -1,9 +1,5 @@
-import { Stack } from "@mantine/core";
 import { useGame } from "../../context/GameContext";
-import PaperSVG from "../PaperSVG/PaperSVG";
 import styles from "./GameHome.module.css";
-import Canvas from "../Canvas/Canvas";
-import ReceivingCanvas from "../ReceivingCanvas/ReceivingCanvas";
 import Sidebar from "./Sidebar/Sidebar";
 import Lobby from "../Lobby/Lobby";
 import ArtistInterface from "./ArtistInterface/ArtistInterface";

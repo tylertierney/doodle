@@ -1,8 +1,7 @@
 import React, { Dispatch } from "react";
-import { useEffect } from "react";
 import { FC } from "react";
 import { useGame } from "../../../context/GameContext";
-import { GuessType, useGuesses } from "../../../context/GuessesContext";
+import { GuessType } from "../../../context/GuessesContext";
 import { getLetterValue } from "../../../utils/utils";
 import styles from "./Guesses.module.css";
 

@@ -37,6 +37,8 @@
     color: white;
     padding: 0.2rem 0.5rem;
     max-width: 300px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .nicknameInput:focus{
