@@ -3,7 +3,6 @@ export const getLocalStorage = (
 ) => {
   let existingGame = null;
   const gameFromLocal = localStorage.getItem("doodle-context");
-  //   console.log(gameFromLocal);
   if (!gameFromLocal) return;
 
   existingGame = JSON.parse(gameFromLocal);
@@ -16,6 +15,8 @@ export const getLocalStorage = (
 };
 
 export const getLetterValue = (letter: string, word: string, index: number) => {
+  word = word.toLowerCase();
+  letter = letter.toLowerCase();
   let result = "inherit";
   if (word.includes(letter)) {
     result = "var(--lightorange)";

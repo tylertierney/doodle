@@ -52,11 +52,16 @@ const Guess: FC<GuessProps> = ({ guess, setGuesses }) => {
     );
   });
 
+  const isCorrect = wordToGuess.toLowerCase() === guess.text.toLowerCase();
+
   return (
-    <div className={styles.guess}>
-      <span>{lettersArr}</span>
+    <div
+      className={styles.guess}
+      style={{ color: isCorrect ? "green" : "inherit" }}
+    >
+      {isCorrect ? <span>I got it!</span> : <span>{lettersArr}</span>}
       <span>-</span>
-      <span>{guess.nickname}</span>
+      <span style={{ fontWeight: "bold" }}>{guess.nickname}</span>
     </div>
   );
 };
