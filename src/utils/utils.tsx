@@ -14,3 +14,16 @@ export const getLocalStorage = (
   console.log(existingGame);
   return existingGame;
 };
+
+export const getLetterValue = (letter: string, word: string, index: number) => {
+  let result = "inherit";
+  if (word.includes(letter)) {
+    result = "var(--lightorange)";
+
+    if (word[index] === letter) {
+      result = "green";
+    }
+  }
+
+  return result;
+};

@@ -1,7 +1,9 @@
 import React, { Dispatch } from "react";
 import { useEffect } from "react";
 import { FC } from "react";
+import { useGame } from "../../../context/GameContext";
 import { GuessType, useGuesses } from "../../../context/GuessesContext";
+import { getLetterValue } from "../../../utils/utils";
 import styles from "./Guesses.module.css";
 
 interface GuessesProps {
@@ -13,15 +15,7 @@ const Guesses: FC<GuessesProps> = ({ guesses, setGuesses }) => {
   return (
     <div className={styles.guessContainer} data-testid="Guesses">
       {guesses.map((guess: GuessType, idx: number) => {
-        return (
-          <Guess
-            key={idx}
-            id={guess.id}
-            nickname={guess.nickname}
-            text={guess.text}
-            setGuesses={setGuesses}
-          />
-        );
+        return <Guess key={idx} guess={guess} setGuesses={setGuesses} />;
       })}
     </div>
   );
@@ -30,22 +24,39 @@ const Guesses: FC<GuessesProps> = ({ guesses, setGuesses }) => {
 export default Guesses;
 
 interface GuessProps {
-  id: number;
-  nickname: string;
-  text: string;
+  guess: GuessType;
   setGuesses: Dispatch<React.SetStateAction<GuessType[]>>;
 }
-const Guess: FC<GuessProps> = ({ id, nickname, text, setGuesses }) => {
+const Guess: FC<GuessProps> = ({ guess, setGuesses }) => {
   const { removeGuess } = useGuesses();
+  const { turns } = useGame();
+
+  const wordToGuess = turns[turns.length - 1].word;
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setGuesses((guesses) => guesses.filter((t) => t.id !== id));
-    }, 2000);
+      setGuesses((guesses) => guesses.filter((t) => t.id !== guess.id));
+    }, 4000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [id, removeGuess]);
-  return <span>{text}</span>;
+  }, [guess.id, removeGuess]);
+
+  const lettersArr = guess.text.split("").map((letter: string, idx: number) => {
+    const color = getLetterValue(letter, wordToGuess, idx);
+    return (
+      <span key={idx} style={{ color }}>
+        {letter}
+      </span>
+    );
+  });
+
+  return (
+    <div className={styles.guess}>
+      <span>{lettersArr}</span>
+      <span>-</span>
+      <span>{guess.nickname}</span>
+    </div>
+  );
 };
