@@ -5,6 +5,9 @@ import { useGame } from "../../context/GameContext";
 import { useEffect } from "react";
 import { getLocalStorage } from "../../utils/utils";
 import { useState } from "react";
+import styles from "./Canvas.module.css";
+import useCanvasResize from "../../hooks/useCanvasResize";
+import GuessesProvider from "../../context/GuessesContext";
 
 interface CanvasProps {
   brushRadius: number;
@@ -18,10 +21,8 @@ const Canvas: React.FC<CanvasProps> = ({
   canvasRef,
 }) => {
   const { turns, currentPlayer } = useGame();
-  // const canvasRef = useRef<CanvasDraw>(null);
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
-  const [canvasWidth, setCanvasWidth] = useState(400);
-  const [canvasHeight, setCanvasHeight] = useState(400);
+  const canvasSize = useCanvasResize(canvasContainerRef);
 
   useEffect(() => {
     const existingGame = getLocalStorage();
@@ -33,36 +34,8 @@ const Canvas: React.FC<CanvasProps> = ({
     }
   }, [canvasRef.current, currentPlayer]);
 
-  useEffect(() => {
-    if (canvasContainerRef.current) {
-      const rect = canvasContainerRef.current.getBoundingClientRect();
-      setCanvasWidth(Math.floor(rect.width));
-      setCanvasHeight(Math.floor(rect.height));
-    }
-  }, [canvasContainerRef.current]);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      if (canvasContainerRef.current) {
-        const rect = canvasContainerRef.current.getBoundingClientRect();
-        setCanvasWidth(Math.floor(rect.width));
-        setCanvasHeight(Math.floor(rect.height));
-      }
-    });
-  }, []);
-
   return (
-    <div
-      style={{
-        borderRadius: "10px",
-        backgroundColor: "white",
-        overflow: "hidden",
-        width: "100%",
-        height: "100%",
-        flexGrow: 1,
-      }}
-      ref={canvasContainerRef}
-    >
+    <div className={styles.canvasContainer} ref={canvasContainerRef}>
       <CanvasDraw
         ref={canvasRef}
         brushColor={brushColor}
@@ -71,9 +44,10 @@ const Canvas: React.FC<CanvasProps> = ({
         lazyRadius={0}
         onChange={(e) => socket.emit("draw", e.getSaveData())}
         immediateLoading={true}
-        canvasHeight={canvasHeight}
-        canvasWidth={canvasWidth}
+        canvasWidth={canvasSize.width}
+        canvasHeight={canvasSize.height}
       />
+      <GuessesProvider></GuessesProvider>
     </div>
   );
 };

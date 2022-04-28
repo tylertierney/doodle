@@ -5,7 +5,7 @@ import CanvasDraw from "react-canvas-draw";
 import Canvas from "../../Canvas/Canvas";
 import Letters from "../Letters/Letters";
 import styles from "./ArtistInterface.module.css";
-import CanvasToolbar from "./CanvasToolbar/CanvasToolbar";
+import CanvasToolbar from "../CanvasToolbar/CanvasToolbar";
 
 interface ArtistInterfaceProps {
   wordToDraw: string[];
@@ -34,9 +34,7 @@ const ArtistInterface: FC<ArtistInterfaceProps> = ({ wordToDraw }) => {
       className={styles.artistInterfaceContainer}
       data-testid="ArtistInterface"
     >
-      <div className={styles.wordToDrawContainer}>
-        <Letters wordToDraw={wordToDraw} />
-      </div>
+      <Letters wordToDraw={wordToDraw} hidden={false} />
       <Canvas
         brushRadius={brushRadius}
         brushColor={brushColor}
@@ -49,6 +47,7 @@ const ArtistInterface: FC<ArtistInterfaceProps> = ({ wordToDraw }) => {
         setBrushColor={setBrushColor}
         clearCanvas={clearCanvas}
         undo={undo}
+        isArtist={true}
       />
     </div>
   );

@@ -1,13 +1,18 @@
 import CanvasDraw from "react-canvas-draw";
 import { useRef } from "react";
 import { useEffect } from "react";
+import styles from "./ReceivingCanvas.module.css";
+import useCanvasResize from "../../hooks/useCanvasResize";
+import GuessesProvider from "../../context/GuessesContext";
 
 interface ReceivingCanvasProps {
   drawingData: string;
 }
 
 const ReceivingCanvas: React.FC<ReceivingCanvasProps> = ({ drawingData }) => {
+  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<CanvasDraw>(null);
+  const canvasSize = useCanvasResize(canvasContainerRef);
 
   useEffect(() => {
     if (drawingData.length > 1) {
@@ -16,23 +21,16 @@ const ReceivingCanvas: React.FC<ReceivingCanvasProps> = ({ drawingData }) => {
   }, [drawingData]);
 
   return (
-    <div>
-      <div
-        style={{
-          borderRadius: "10px",
-          backgroundColor: "white",
-          overflow: "hidden",
-        }}
-      >
-        <CanvasDraw
-          disabled={true}
-          ref={canvasRef}
-          // brushRadius={0}
-          // lazyRadius={0}
-          hideInterface={true}
-          hideGrid={true}
-        />
-      </div>
+    <div className={styles.canvasContainer} ref={canvasContainerRef}>
+      <CanvasDraw
+        disabled={true}
+        ref={canvasRef}
+        hideInterface={true}
+        hideGrid={true}
+        canvasWidth={canvasSize.width}
+        canvasHeight={canvasSize.height}
+      />
+      <GuessesProvider></GuessesProvider>
     </div>
   );
 };

@@ -3,7 +3,7 @@
     height: 100%;
     padding: 0.3rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
 }
@@ -18,10 +18,12 @@
     height: 100%;
     min-height: 100vh;
     min-width: 400px;
+    flex: 1;
+    order: 2;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 670px) {
     .artistInterfaceContainer {
-        order: -1;
+        order: 1;
     }
 }

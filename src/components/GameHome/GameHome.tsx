@@ -7,6 +7,7 @@ import ReceivingCanvas from "../ReceivingCanvas/ReceivingCanvas";
 import Sidebar from "./Sidebar/Sidebar";
 import Lobby from "../Lobby/Lobby";
 import ArtistInterface from "./ArtistInterface/ArtistInterface";
+import GuesserInterface from "./GuesserInterface/GuesserInterface";
 
 interface GameHomeProps {
   drawingData: string;
@@ -23,12 +24,11 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
   const activeTurn = turns[turns.length - 1];
   const isArtist = currentPlayer?.id === activeTurn?.artist?.id;
 
-  const wordToDraw = turns[turns.length - 1]?.word.split("");
+  const wordToDraw: string[] = turns[turns.length - 1]?.word.split("");
 
   return (
     <div className={styles.gameHomeContainer}>
-      <Sidebar players={leftSidePlayers} />
-      {/* <Sidebar players={rightSidePlayers} /> */}
+      <Sidebar players={leftSidePlayers} side="left" />
       {stage === "waitingForPlayers" ? (
         <Lobby />
       ) : (
@@ -41,11 +41,19 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
               <ArtistInterface wordToDraw={wordToDraw} />
             </div>
           ) : (
-            <ReceivingCanvas drawingData={drawingData} />
+            <div
+              style={{ position: "relative", flexGrow: 1 }}
+              className={styles.artistInterfaceContainer}
+            >
+              <GuesserInterface
+                drawingData={drawingData}
+                wordToDraw={wordToDraw}
+              />
+            </div>
           )}
         </>
       )}
-      <Sidebar players={rightSidePlayers} />
+      <Sidebar players={rightSidePlayers} side="right" />
     </div>
   );
 };

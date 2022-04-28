@@ -1,12 +1,14 @@
 import { Text } from "@mantine/core";
 import { Player } from "../../../context/GameContext";
 import { GiQueenCrown } from "react-icons/gi";
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   players: Player[];
+  side: "left" | "right";
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ players }) => {
+const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
   const crownBadge = (
     <div className="crownBadgeSmall">
       <GiQueenCrown style={{ width: "75%", height: "75%" }} />
@@ -15,24 +17,17 @@ const Sidebar: React.FC<SidebarProps> = ({ players }) => {
 
   return (
     <div
-      style={{
-        minWidth: "120px",
-        height: "100%",
-        padding: "1rem 0.3rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-      }}
+      className={`${styles.sidebarContainer} ${
+        side === "left" ? styles.left : styles.right
+      }`}
     >
       {players.map((player: Player, idx: number) => {
         return (
           <div
+            className={styles.playerContainer}
             key={idx}
             style={{
-              display: "flex",
-              justifyContent: "center",
               alignItems: idx % 2 === 0 ? "flex-start" : "flex-end",
-              flexDirection: "column",
             }}
           >
             <div
