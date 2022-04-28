@@ -75,7 +75,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
           <FaUndo fontSize="1.5rem" />
         </button>
         <button
-          onClick={() => setBrushColor("#fcfcfc")}
+          onClick={() => setBrushColor("white")}
           className={styles.controlBtn}
         >
           <FaEraser fontSize="1.7rem" />

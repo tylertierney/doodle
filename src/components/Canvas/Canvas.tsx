@@ -46,6 +46,7 @@ const Canvas: React.FC<CanvasProps> = ({
         immediateLoading={true}
         canvasWidth={canvasSize.width}
         canvasHeight={canvasSize.height}
+        hideGrid={true}
       />
       <GuessesProvider></GuessesProvider>
     </div>
