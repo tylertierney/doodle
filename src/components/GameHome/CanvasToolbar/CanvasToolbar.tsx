@@ -13,6 +13,9 @@ interface CanvasToolbarProps {
   clearCanvas: () => void;
   undo: () => void;
   isArtist: boolean;
+  guess: string;
+  setGuess: Dispatch<SetStateAction<string>>;
+  handleGuessSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
@@ -23,6 +26,9 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   clearCanvas,
   undo,
   isArtist,
+  guess,
+  setGuess,
+  handleGuessSubmit,
 }) => {
   const { currentPlayer } = useGame();
   const brushes = [6, 8, 10, 12, 14].map((radius: number, idx: number) => {
@@ -86,18 +92,6 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
       <div className={styles.paletteContainer}>{colors}</div>
     </>
   );
-
-  const [guess, setGuess] = useState("");
-
-  const handleGuessSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const guessObj = {
-      nickname: currentPlayer?.nickname,
-      text: guess.toLowerCase().trim(),
-    };
-    socket.emit("guess", guessObj);
-    setGuess("");
-  };
 
   const guesserTools = (
     <div className={styles.guessInputContainer}>

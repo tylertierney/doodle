@@ -38,8 +38,12 @@ function App() {
       setPlayers(players);
     });
     socket.on("startGame", (turns: Turn[]) => {
-      if (currentPlayer) setGameStage("playing");
+      if (currentPlayer) setGameStage("wordSelection");
       setTurns(turns);
+    });
+    socket.on("selectWord", (turns: Turn[]) => {
+      setTurns(turns);
+      setGameStage("playing");
     });
     socket.on("endGame", () => {
       endGame();
@@ -56,6 +60,8 @@ function App() {
         return <CharacterSelect existingGame={true} />;
       case "waitingForPlayers":
         return <GameHome stage="waitingForPlayers" drawingData={drawingData} />;
+      case "wordSelection":
+        return <GameHome stage="wordSelection" drawingData={drawingData} />;
       case "playing":
         return <GameHome stage="playing" drawingData={drawingData} />;
       default:
@@ -78,6 +84,9 @@ function App() {
       {currentPlayer?.isVIP && (
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
+      <button onClick={() => socket.emit("getPossibleWords")}>
+        select words
+      </button>
     </div>
   );
 }

@@ -16,6 +16,7 @@ export interface Turn {
   artist: Player;
   guesses: string[];
   active: boolean;
+  possibleWords: string[];
 }
 
 export interface GameContextType {
@@ -28,6 +29,7 @@ export interface GameContextType {
   setTurns: (turns: Turn[]) => void;
   currentPlayer: null | Player;
   setCurrentPlayer: (currentPlayer: Player | null) => void;
+  timer: number;
 }
 
 const initial: GameContextType = {
@@ -40,6 +42,7 @@ const initial: GameContextType = {
   setTurns: () => [],
   currentPlayer: null,
   setCurrentPlayer: () => {},
+  timer: 90,
 };
 
 export const GameContext = createContext<GameContextType>(initial);
@@ -50,6 +53,7 @@ const GameProvider: React.FC = ({ children }) => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
+  const [timer, setTimer] = useState(90);
 
   const getIpAddress = async () => {
     socket.on("ipAddress", (ipAddress) => {
@@ -72,6 +76,10 @@ const GameProvider: React.FC = ({ children }) => {
         setTurns(gameFromLocal.turns);
       }
     }
+
+    socket.on("setTimer", (time: number) => {
+      setTimer(time);
+    });
   }, []);
 
   useEffect(() => {
@@ -102,6 +110,7 @@ const GameProvider: React.FC = ({ children }) => {
     setTurns,
     currentPlayer,
     setCurrentPlayer,
+    timer,
   };
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>;
 };

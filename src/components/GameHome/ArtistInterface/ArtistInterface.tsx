@@ -34,7 +34,7 @@ const ArtistInterface: FC<ArtistInterfaceProps> = ({ wordToDraw }) => {
       className={styles.artistInterfaceContainer}
       data-testid="ArtistInterface"
     >
-      <Letters wordToDraw={wordToDraw} hidden={false} />
+      <Letters wordToDraw={wordToDraw} hidden={false} bounceAnimation={true} />
       <Canvas
         brushRadius={brushRadius}
         brushColor={brushColor}
@@ -48,6 +48,9 @@ const ArtistInterface: FC<ArtistInterfaceProps> = ({ wordToDraw }) => {
         clearCanvas={clearCanvas}
         undo={undo}
         isArtist={true}
+        guess=""
+        setGuess={() => {}}
+        handleGuessSubmit={() => {}}
       />
     </div>
   );

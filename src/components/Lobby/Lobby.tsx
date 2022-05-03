@@ -10,7 +10,7 @@ const Lobby: React.FC = () => {
 
   const handleStart = () => {
     socket.emit("startGame");
-    setGameStage("playing");
+    setGameStage("wordSelection");
   };
 
   const message = currentPlayer?.isVIP

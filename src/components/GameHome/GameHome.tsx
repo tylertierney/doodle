@@ -4,10 +4,11 @@ import Sidebar from "./Sidebar/Sidebar";
 import Lobby from "../Lobby/Lobby";
 import ArtistInterface from "./ArtistInterface/ArtistInterface";
 import GuesserInterface from "./GuesserInterface/GuesserInterface";
+import WordSelection from "./WordSelection/WordSelection";
 
 interface GameHomeProps {
   drawingData: string;
-  stage: "waitingForPlayers" | "playing";
+  stage: "waitingForPlayers" | "wordSelection" | "playing";
 }
 
 const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
@@ -22,33 +23,35 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
 
   const wordToDraw: string[] = turns[turns.length - 1]?.word.split("");
 
-  return (
-    <div className={styles.gameHomeContainer}>
-      <Sidebar players={leftSidePlayers} side="left" />
-      {stage === "waitingForPlayers" ? (
-        <Lobby />
-      ) : (
-        <>
-          {isArtist ? (
-            <div
-              style={{ position: "relative", flexGrow: 1 }}
-              className={styles.artistInterfaceContainer}
-            >
+  const getGameScreen = (stage: string, isArtist: boolean) => {
+    switch (stage) {
+      case "waitingForPlayers":
+        return <Lobby />;
+      case "wordSelection":
+        return <WordSelection isArtist={isArtist} />;
+      case "playing":
+        return (
+          <div
+            style={{ position: "relative", flexGrow: 1 }}
+            className={styles.interfaceContainer}
+          >
+            {isArtist ? (
               <ArtistInterface wordToDraw={wordToDraw} />
-            </div>
-          ) : (
-            <div
-              style={{ position: "relative", flexGrow: 1 }}
-              className={styles.artistInterfaceContainer}
-            >
+            ) : (
               <GuesserInterface
                 drawingData={drawingData}
                 wordToDraw={wordToDraw}
               />
-            </div>
-          )}
-        </>
-      )}
+            )}
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className={styles.gameHomeContainer}>
+      <Sidebar players={leftSidePlayers} side="left" />
+      {getGameScreen(stage, isArtist)}
       <Sidebar players={rightSidePlayers} side="right" />
     </div>
   );
