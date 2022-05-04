@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { CharacterObj } from "../components/CharacterSelect/characters";
 import socket from "../socket";
 import { getLocalStorage } from "../utils/utils";
@@ -8,6 +15,7 @@ export interface Player {
   selectedCharacter: CharacterObj;
   isVIP: boolean;
   id: string;
+  peerId: string;
 }
 
 export interface Turn {
@@ -30,6 +38,8 @@ export interface GameContextType {
   currentPlayer: null | Player;
   setCurrentPlayer: (currentPlayer: Player | null) => void;
   timer: number;
+  peerId: string;
+  setPeerId: Dispatch<SetStateAction<string>>;
 }
 
 const initial: GameContextType = {
@@ -43,6 +53,8 @@ const initial: GameContextType = {
   currentPlayer: null,
   setCurrentPlayer: () => {},
   timer: 90,
+  peerId: "",
+  setPeerId: () => {},
 };
 
 export const GameContext = createContext<GameContextType>(initial);
@@ -54,6 +66,7 @@ const GameProvider: React.FC = ({ children }) => {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
   const [timer, setTimer] = useState(90);
+  const [peerId, setPeerId] = useState<string>("");
 
   const getIpAddress = async () => {
     socket.on("ipAddress", (ipAddress) => {
@@ -111,6 +124,8 @@ const GameProvider: React.FC = ({ children }) => {
     currentPlayer,
     setCurrentPlayer,
     timer,
+    peerId,
+    setPeerId,
   };
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>;
 };

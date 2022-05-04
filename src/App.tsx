@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { useState } from "react";
 import "./App.css";
 import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
 import GameHome from "./components/GameHome/GameHome";
 import Welcome from "./components/Welcome/Welcome";
-import { Turn, useGame } from "./context/GameContext";
+import { Player, Turn, useGame } from "./context/GameContext";
 import socket from "./socket";
+import Peer from "peerjs";
 
 function App() {
   const {
@@ -15,8 +16,12 @@ function App() {
     setTurns,
     currentPlayer,
     setCurrentPlayer,
+    setPeerId,
+    players,
   } = useGame();
   const [drawingData, setDrawingData] = useState("");
+  const currentUserVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -69,11 +74,66 @@ function App() {
     }
   };
 
+  const [peer, setPeer] = useState<Peer | null>(null);
+
+  useEffect(() => {
+    const peerInstance = new Peer();
+    peerInstance.on("open", (id: string) => {
+      setPeerId(id);
+    });
+
+    peerInstance.on("call", (call) => {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((mediaStream: MediaStream) => {
+          call.answer(mediaStream);
+          renderVideo(mediaStream, currentUserVideoRef);
+          call.on("stream", (remoteStream: MediaStream) => {
+            renderVideo(remoteStream, remoteVideoRef);
+          });
+        })
+        .catch((err) => {
+          call.answer();
+          call.on("stream", (remoteStream: MediaStream) => {
+            renderVideo(remoteStream, remoteVideoRef);
+          });
+          console.log(err);
+        });
+    });
+
+    setPeer(peerInstance);
+  }, []);
+
+  const call = () => {
+    if (peer) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream: MediaStream) => {
+          renderVideo(stream, currentUserVideoRef);
+          const call = peer.call(players[0].peerId, stream);
+          call.on("stream", (remoteStream: MediaStream) => {
+            renderVideo(remoteStream, remoteVideoRef);
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const renderVideo = (
+    stream: MediaStream,
+    ref: RefObject<HTMLVideoElement>
+  ) => {
+    if (ref.current) {
+      ref.current.srcObject = stream;
+    }
+  };
+
   return (
     <div
       style={{
         width: "100%",
-        // height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -84,9 +144,15 @@ function App() {
       {currentPlayer?.isVIP && (
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
-      <button onClick={() => socket.emit("getPossibleWords")}>
-        select words
-      </button>
+      <button onClick={() => call()}>call</button>
+      {/* <button onClick={() => console.log(navigator)}>navigator</button> */}
+      <button onClick={() => console.log(window)}>localstream</button>
+      <div style={{ border: "2px solid red" }}>
+        Current User<video autoPlay={true} ref={currentUserVideoRef}></video>
+      </div>
+      <div style={{ border: "2px solid green" }}>
+        Remote User<video autoPlay={true} ref={remoteVideoRef}></video>
+      </div>
     </div>
   );
 }

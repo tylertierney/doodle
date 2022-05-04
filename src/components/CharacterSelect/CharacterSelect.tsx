@@ -13,7 +13,7 @@ interface CharacterSelectProps {
 }
 
 const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
-  const { setGameStage, setCurrentPlayer, gameStage } = useGame();
+  const { setGameStage, setCurrentPlayer, gameStage, peerId } = useGame();
   const [charactersArr, setCharactersArr] =
     useState<CharacterObj[]>(characters);
   const [nickname, setNickname] = useState("");
@@ -37,6 +37,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       selectedCharacter,
       isVIP: existingGame ? false : true,
       id: generateId(),
+      peerId,
     };
     setCurrentPlayer(playerObj);
     existingGame
