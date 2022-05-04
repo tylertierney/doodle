@@ -16,6 +16,7 @@ export interface Player {
   isVIP: boolean;
   id: string;
   peerId: string;
+  usingVideo: boolean;
 }
 
 export interface Turn {
@@ -40,6 +41,8 @@ export interface GameContextType {
   timer: number;
   peerId: string;
   setPeerId: Dispatch<SetStateAction<string>>;
+  usingVideo: boolean;
+  setUsingVideo: Dispatch<SetStateAction<boolean>>;
 }
 
 const initial: GameContextType = {
@@ -55,6 +58,8 @@ const initial: GameContextType = {
   timer: 90,
   peerId: "",
   setPeerId: () => {},
+  usingVideo: false,
+  setUsingVideo: () => {},
 };
 
 export const GameContext = createContext<GameContextType>(initial);
@@ -67,6 +72,7 @@ const GameProvider: React.FC = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
   const [timer, setTimer] = useState(90);
   const [peerId, setPeerId] = useState<string>("");
+  const [usingVideo, setUsingVideo] = useState<boolean>(false);
 
   const getIpAddress = async () => {
     socket.on("ipAddress", (ipAddress) => {
@@ -126,6 +132,8 @@ const GameProvider: React.FC = ({ children }) => {
     timer,
     peerId,
     setPeerId,
+    usingVideo,
+    setUsingVideo,
   };
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>;
 };

@@ -7,6 +7,7 @@ import Welcome from "./components/Welcome/Welcome";
 import { Player, Turn, useGame } from "./context/GameContext";
 import socket from "./socket";
 import Peer from "peerjs";
+import { renderVideo } from "./utils/utils";
 
 function App() {
   const {
@@ -121,15 +122,6 @@ function App() {
     }
   };
 
-  const renderVideo = (
-    stream: MediaStream,
-    ref: RefObject<HTMLVideoElement>
-  ) => {
-    if (ref.current) {
-      ref.current.srcObject = stream;
-    }
-  };
-
   return (
     <div
       style={{
@@ -145,8 +137,6 @@ function App() {
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
       <button onClick={() => call()}>call</button>
-      {/* <button onClick={() => console.log(navigator)}>navigator</button> */}
-      <button onClick={() => console.log(window)}>localstream</button>
       <div style={{ border: "2px solid red" }}>
         Current User<video autoPlay={true} ref={currentUserVideoRef}></video>
       </div>

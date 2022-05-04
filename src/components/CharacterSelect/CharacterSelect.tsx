@@ -1,22 +1,34 @@
-import { Group, Stack, Text, Title } from "@mantine/core";
+import { Stack, Text, Title } from "@mantine/core";
 import styles from "./CharacterSelect.module.css";
 import { CharacterObj, characters } from "./characters";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Player, useGame } from "../../context/GameContext";
 import { GiQueenCrown } from "react-icons/gi";
 import socket from "../../socket";
 import GradientBtn from "../GradientBtn/GradientBtn";
+import TabsMenu from "./TabsMenu/TabsMenu";
+import { renderVideo } from "../../utils/utils";
 
 interface CharacterSelectProps {
   existingGame: boolean;
 }
 
 const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
-  const { setGameStage, setCurrentPlayer, gameStage, peerId } = useGame();
+  const {
+    setGameStage,
+    setCurrentPlayer,
+    gameStage,
+    peerId,
+    usingVideo,
+    setUsingVideo,
+  } = useGame();
   const [charactersArr, setCharactersArr] =
     useState<CharacterObj[]>(characters);
   const [nickname, setNickname] = useState("");
+  const [activeTab, setActiveTab] = useState(0);
+  const userVideoRef = useRef<HTMLVideoElement>(null);
+  const [errorText, setErrorText] = useState("");
 
   const handleCharacterSelect = (name: string) => {
     setCharactersArr(
@@ -38,6 +50,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       isVIP: existingGame ? false : true,
       id: generateId(),
       peerId,
+      usingVideo,
     };
     setCurrentPlayer(playerObj);
     existingGame
@@ -55,6 +68,29 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       <GiQueenCrown style={{ width: "75%", height: "75%" }} />
     </div>
   );
+
+  const getUserMedia = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream: MediaStream) => {
+        setUsingVideo(true);
+        renderVideo(stream, userVideoRef);
+      })
+      .catch((err) => {
+        setUsingVideo(false);
+        if (err.name === "NotFoundError") {
+          setErrorText(
+            "Requested media device not found. Check your camera and microphone, or use an avatar instead."
+          );
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (activeTab === 1) {
+      getUserMedia();
+    }
+  }, [activeTab]);
 
   return (
     <div className={styles.pageContainer}>
@@ -74,30 +110,13 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                 onChange={(e) => setNickname(e.target.value)}
               />
             </Stack>
-            <Stack spacing="xs">
-              <Title order={2} style={{ margin: 0, color: "white" }}>
-                Choose a character
-              </Title>
-              <Group style={{ maxWidth: "480px" }}>
-                {charactersArr.map((item: CharacterObj, idx: number) => {
-                  return (
-                    <img
-                      onClick={() => handleCharacterSelect(item.name)}
-                      key={idx}
-                      src={item.icon}
-                      className={styles.characterIcons}
-                      style={{
-                        backgroundColor: item.color,
-                        border: item.isSelected ? "4px solid white" : "none",
-                        boxShadow: item.isSelected
-                          ? "2px 2px 14px 1px rgba(0, 0, 0, 0.3)"
-                          : "none",
-                      }}
-                    />
-                  );
-                })}
-              </Group>
-            </Stack>
+            <TabsMenu
+              charactersArr={charactersArr}
+              handleCharacterSelect={handleCharacterSelect}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              errorText={errorText}
+            />
           </Stack>
           <Stack
             align="center"
@@ -109,14 +128,32 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
               width: "50%",
             }}
           >
-            <img
-              className={styles.selectedCharacterImg}
-              src={selectedCharacter?.icon}
-              style={{
-                backgroundColor: selectedCharacter?.color,
-                margin: 0,
-              }}
-            />
+            {activeTab === 0 ? (
+              <img
+                className={styles.selectedCharacterImg}
+                src={selectedCharacter?.icon}
+                style={{
+                  backgroundColor: selectedCharacter?.color,
+                  margin: 0,
+                }}
+              />
+            ) : (
+              // <video
+              //   ref={userVideoRef}
+              //   className={`${styles.selectedCharacterImg} ${styles.videoHTML}`}
+              //   autoPlay={true}
+              // >
+              //   <source
+              //     src="http://techslides.com/demos/samples/sample.mp4"
+              //     type="video/mp4"
+              //   />
+              // </video>
+              <video
+                className={`${styles.selectedCharacterImg} ${styles.videoHTML}`}
+                autoPlay={true}
+                ref={userVideoRef}
+              ></video>
+            )}
             <Text
               weight="bold"
               align="center"

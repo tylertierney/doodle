@@ -64,6 +64,15 @@
     border: solid white 4px;
 }
 
+.videoHTML {
+    object-fit: cover;
+    background-image: url('../../assets/svg/nocamera.svg');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(60, 65, 86);
+}
+
 .selectedCharacterText:empty::before{
     content: "\200b";
 }
@@ -76,4 +85,9 @@
     position: relative;
     flex-wrap: wrap;
     margin-bottom: 1rem;
+}
+
+.errorText {
+    color: rgb(255, 211, 211);
+    font-size: 1.05rem;
 }

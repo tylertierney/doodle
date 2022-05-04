@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export const getLocalStorage = (
   key?: "currentPlayer" | "gameStage" | "ipAddress" | "players" | "turns"
 ) => {
@@ -22,4 +24,13 @@ export const getLetterValue = (letter: string, word: string, index: number) => {
     }
   }
   return result;
+};
+
+export const renderVideo = (
+  stream: MediaStream,
+  ref: RefObject<HTMLVideoElement>
+) => {
+  if (ref.current) {
+    ref.current.srcObject = stream;
+  }
 };
