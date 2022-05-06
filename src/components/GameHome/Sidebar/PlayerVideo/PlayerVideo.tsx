@@ -4,18 +4,18 @@ import styles from "../Sidebar.module.css";
 import { renderVideo } from "../../../../utils/utils";
 
 interface PlayerVideoProps {
-  stream: MediaStream;
+  stream: MediaStream | null;
 }
 const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream }) => {
+  // return null;
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    // console.log(stream);
     if (stream != undefined) {
       renderVideo(stream, videoRef);
     }
   }, [videoRef.current]);
-
-  console.log(stream);
 
   return (
     <video

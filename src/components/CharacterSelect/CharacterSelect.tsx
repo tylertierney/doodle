@@ -23,7 +23,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     usingVideo,
     setUsingVideo,
   } = useGame();
-  const { peerId, setUserStream, userStream } = usePeer();
+  const { peerId, setUserStream, userStream, setStreams } = usePeer();
   const [charactersArr, setCharactersArr] =
     useState<CharacterObj[]>(characters);
   const [nickname, setNickname] = useState("");
@@ -45,6 +45,13 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
   };
 
   const handleSubmit = () => {
+    if (userStream) {
+      setStreams((streams) => {
+        let streamObj = { ...streams };
+        streamObj[peerId] = userStream;
+        return streamObj;
+      });
+    }
     const playerObj: Player = {
       nickname,
       selectedCharacter,

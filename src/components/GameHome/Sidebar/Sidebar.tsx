@@ -2,7 +2,7 @@ import { Text } from "@mantine/core";
 import { Player, useGame } from "../../../context/GameContext";
 import { GiQueenCrown } from "react-icons/gi";
 import styles from "./Sidebar.module.css";
-import { StreamsIdentifier } from "../GameHome";
+import { StreamsIdentifier } from "../../../context/PeerContext";
 import PlayerVideo from "./PlayerVideo/PlayerVideo";
 import { usePeer } from "../../../context/PeerContext";
 
@@ -27,8 +27,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   if (!currentPlayer) return null;
 
-  // console.log(streams);
-
   return (
     <div
       className={`${styles.sidebarContainer} ${
@@ -36,7 +34,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       }`}
     >
       {playersOnThisSide.map((player: Player, idx: number) => {
-        console.log(streams[player.peerId]);
         return (
           <div
             className={styles.playerContainer}
@@ -47,9 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <div className={styles.playerAvatarAndName}>
               <div className={styles.playerAvatarAndBadges}>
-                {player.usingVideo && streams[player.peerId] ? (
-                  // <PlayerVideo stream={userStream} />
-
+                {player.usingVideo ? (
                   <PlayerVideo
                     stream={
                       player.id === currentPlayer.id

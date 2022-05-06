@@ -22,7 +22,7 @@ function App() {
   const [drawingData, setDrawingData] = useState("");
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
-  const { userStream } = usePeer();
+  const { userStream, streams } = usePeer();
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -81,8 +81,7 @@ function App() {
       {currentPlayer?.isVIP && (
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
-      {/* <button onClick={() => call(players[0].peerId)}>call</button> */}
-      <button onClick={() => console.log(userStream)}>userStream</button>
+      <button onClick={() => console.log(streams)}>streams</button>
       <div style={{ border: "2px solid red" }}>
         Current User<video autoPlay={true} ref={currentUserVideoRef}></video>
       </div>

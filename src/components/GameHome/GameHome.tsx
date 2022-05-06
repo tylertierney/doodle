@@ -5,8 +5,7 @@ import Lobby from "../Lobby/Lobby";
 import ArtistInterface from "./ArtistInterface/ArtistInterface";
 import GuesserInterface from "./GuesserInterface/GuesserInterface";
 import WordSelection from "./WordSelection/WordSelection";
-import { useEffect, useRef, useState } from "react";
-import Peer from "peerjs";
+import { useEffect, useState } from "react";
 import { usePeer } from "../../context/PeerContext";
 
 interface GameHomeProps {
@@ -14,64 +13,9 @@ interface GameHomeProps {
   stage: "waitingForPlayers" | "wordSelection" | "playing";
 }
 
-export interface StreamsIdentifier {
-  [key: string]: MediaStream;
-}
-
 const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
-  const [streams, setStreams] = useState<StreamsIdentifier>({});
   const { players, turns, currentPlayer } = useGame();
-  const { peer } = usePeer();
-
-  // useEffect(() => {
-  //   const peerInstance = new Peer();
-  //   peerInstance.on("open", (id: string) => {
-  //     setPeerId(id);
-  //   });
-  //   peerInstance.on("call", (call) => {
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: true, audio: false })
-  //       .then((mediaStream: MediaStream) => {
-  //         call.answer();
-  //         if (currentUserVideoRef.current) {
-  //           currentUserVideoRef.current.srcObject = mediaStream;
-  //         }
-  //         call.on("stream", (remoteStream: MediaStream)=>{
-  //           streams[]
-  //         })
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   });
-  //   setPeer(peerInstance);
-  // }, []);
-  useEffect(() => {
-    if (!currentPlayer) return;
-    if (players.length > 0 && peer) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
-        .then((stream: MediaStream) => {
-          const targetPlayerPeerId = players[players.length - 1].peerId;
-          setStreams((streams) => {
-            let streamObj = { ...streams };
-            streamObj[currentPlayer.peerId] = stream;
-            return streamObj;
-          });
-          const call = peer.call(targetPlayerPeerId, stream);
-          call.on("stream", (remoteStream: MediaStream) => {
-            setStreams((streams) => {
-              let streamObj = { ...streams };
-              streamObj[targetPlayerPeerId] = remoteStream;
-              return streamObj;
-            });
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [players.length]);
+  const { streams } = usePeer();
 
   const half = Math.ceil(players.length / 2);
   const leftSidePlayers = players.slice(0, half);
