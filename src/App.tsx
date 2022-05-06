@@ -7,7 +7,6 @@ import Welcome from "./components/Welcome/Welcome";
 import { Turn, useGame } from "./context/GameContext";
 import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
-// import usePeer from "./hooks/usePeer";
 
 function App() {
   const {

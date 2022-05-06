@@ -5,7 +5,6 @@ import Lobby from "../Lobby/Lobby";
 import ArtistInterface from "./ArtistInterface/ArtistInterface";
 import GuesserInterface from "./GuesserInterface/GuesserInterface";
 import WordSelection from "./WordSelection/WordSelection";
-import { useEffect, useState } from "react";
 import { usePeer } from "../../context/PeerContext";
 
 interface GameHomeProps {

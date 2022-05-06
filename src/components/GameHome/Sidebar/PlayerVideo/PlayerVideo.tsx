@@ -1,17 +1,15 @@
 import { useEffect, useRef } from "react";
-import { usePeer } from "../../../../context/PeerContext";
 import styles from "../Sidebar.module.css";
 import { renderVideo } from "../../../../utils/utils";
 
 interface PlayerVideoProps {
   stream: MediaStream | null;
+  isMuted: boolean;
 }
-const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream }) => {
-  // return null;
+const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream, isMuted }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // console.log(stream);
     if (stream != undefined) {
       renderVideo(stream, videoRef);
     }
@@ -22,6 +20,7 @@ const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream }) => {
       ref={videoRef}
       autoPlay={true}
       className={`${styles.characterImg}`}
+      muted={isMuted}
     ></video>
   );
 };
