@@ -13,7 +13,7 @@ const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream, isMuted }) => {
     if (stream != undefined) {
       renderVideo(stream, videoRef);
     }
-  }, [videoRef.current]);
+  }, [videoRef.current, stream]);
 
   return (
     <video

@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <div className={styles.playerAvatarAndName}>
               <div className={styles.playerAvatarAndBadges}>
-                {player.usingVideo && streams[player.peerId] ? (
+                {player.usingVideo ? (
                   <PlayerVideo
                     stream={
                       player.id === currentPlayer.id
