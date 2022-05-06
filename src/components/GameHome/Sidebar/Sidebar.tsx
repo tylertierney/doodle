@@ -1,19 +1,33 @@
 import { Text } from "@mantine/core";
-import { Player } from "../../../context/GameContext";
+import { Player, useGame } from "../../../context/GameContext";
 import { GiQueenCrown } from "react-icons/gi";
 import styles from "./Sidebar.module.css";
+import { StreamsIdentifier } from "../GameHome";
+import PlayerVideo from "./PlayerVideo/PlayerVideo";
+import { usePeer } from "../../../context/PeerContext";
 
 interface SidebarProps {
-  players: Player[];
+  playersOnThisSide: Player[];
   side: "left" | "right";
+  streams: StreamsIdentifier;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  playersOnThisSide,
+  side,
+  streams,
+}) => {
+  const { currentPlayer } = useGame();
+  const { userStream } = usePeer();
   const crownBadge = (
     <div className="crownBadgeSmall">
       <GiQueenCrown style={{ width: "75%", height: "75%" }} />
     </div>
   );
+
+  if (!currentPlayer) return null;
+
+  // console.log(streams);
 
   return (
     <div
@@ -21,7 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
         side === "left" ? styles.left : styles.right
       }`}
     >
-      {players.map((player: Player, idx: number) => {
+      {playersOnThisSide.map((player: Player, idx: number) => {
+        console.log(streams[player.peerId]);
         return (
           <div
             className={styles.playerContainer}
@@ -30,25 +45,28 @@ const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
               alignItems: idx % 2 === 0 ? "flex-start" : "flex-end",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                position: "relative",
-              }}
-            >
-              <div style={{ position: "relative" }}>
-                <img
-                  src={player.selectedCharacter.icon}
-                  style={{
-                    borderRadius: "50%",
-                    backgroundColor: player.selectedCharacter.color,
-                    margin: 0,
-                  }}
-                  width="60px"
-                  height="60px"
-                />
+            <div className={styles.playerAvatarAndName}>
+              <div className={styles.playerAvatarAndBadges}>
+                {player.usingVideo && streams[player.peerId] ? (
+                  // <PlayerVideo stream={userStream} />
+
+                  <PlayerVideo
+                    stream={
+                      player.id === currentPlayer.id
+                        ? userStream
+                        : streams[player.peerId]
+                    }
+                  />
+                ) : (
+                  <img
+                    src={player.selectedCharacter.icon}
+                    style={{
+                      backgroundColor: player.selectedCharacter.color,
+                      margin: 0,
+                    }}
+                    className={styles.characterImg}
+                  />
+                )}
                 {player.isVIP && crownBadge}
               </div>
 
@@ -65,6 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ players, side }) => {
                 {player.nickname}
               </Text>
             </div>
+            <button onClick={() => console.log(userStream)}>ref</button>
           </div>
         );
       })}

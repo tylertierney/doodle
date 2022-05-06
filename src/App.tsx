@@ -5,8 +5,9 @@ import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
 import GameHome from "./components/GameHome/GameHome";
 import Welcome from "./components/Welcome/Welcome";
 import { Turn, useGame } from "./context/GameContext";
+import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
-import usePeer from "./hooks/usePeer";
+// import usePeer from "./hooks/usePeer";
 
 function App() {
   const {
@@ -21,7 +22,7 @@ function App() {
   const [drawingData, setDrawingData] = useState("");
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
-  const call = usePeer(currentUserVideoRef, remoteVideoRef);
+  const { userStream } = usePeer();
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -80,7 +81,8 @@ function App() {
       {currentPlayer?.isVIP && (
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
-      <button onClick={() => call(players[0].peerId)}>call</button>
+      {/* <button onClick={() => call(players[0].peerId)}>call</button> */}
+      <button onClick={() => console.log(userStream)}>userStream</button>
       <div style={{ border: "2px solid red" }}>
         Current User<video autoPlay={true} ref={currentUserVideoRef}></video>
       </div>

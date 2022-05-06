@@ -88,6 +88,8 @@
 }
 
 .errorText {
+    padding: 1rem 0;
+    margin: 1rem 0;
     color: rgb(255, 211, 211);
     font-size: 1.05rem;
 }

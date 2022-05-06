@@ -84,7 +84,7 @@ const TabsMenu: React.FC<TabsMenuProps> = ({
         </Stack>
       </Tabs.Tab>
       <Tabs.Tab label="Use Video" icon={<BsCameraVideo />}>
-        <span className={styles.errorText}>{errorText}</span>
+        <p className={styles.errorText}>{errorText}</p>
       </Tabs.Tab>
     </Tabs>
   );

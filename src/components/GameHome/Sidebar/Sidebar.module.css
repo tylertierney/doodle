@@ -22,6 +22,24 @@
     padding: 0 0.5rem;
 }
 
+.playerAvatarAndName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.playerAvatarAndBadges {
+    position: relative;
+}
+
+.characterImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0;
+}
+
 @media only screen and (max-width: 670px) {
     .left {
         order: 2;

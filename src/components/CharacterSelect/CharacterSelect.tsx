@@ -9,6 +9,7 @@ import socket from "../../socket";
 import GradientBtn from "../GradientBtn/GradientBtn";
 import TabsMenu from "./TabsMenu/TabsMenu";
 import { renderVideo } from "../../utils/utils";
+import { usePeer } from "../../context/PeerContext";
 
 interface CharacterSelectProps {
   existingGame: boolean;
@@ -19,10 +20,10 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     setGameStage,
     setCurrentPlayer,
     gameStage,
-    peerId,
     usingVideo,
     setUsingVideo,
   } = useGame();
+  const { peerId, setUserStream, userStream } = usePeer();
   const [charactersArr, setCharactersArr] =
     useState<CharacterObj[]>(characters);
   const [nickname, setNickname] = useState("");
@@ -73,6 +74,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream: MediaStream) => {
+        setUserStream(stream);
         setUsingVideo(true);
         renderVideo(stream, userVideoRef);
       })
@@ -138,16 +140,6 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                 }}
               />
             ) : (
-              // <video
-              //   ref={userVideoRef}
-              //   className={`${styles.selectedCharacterImg} ${styles.videoHTML}`}
-              //   autoPlay={true}
-              // >
-              //   <source
-              //     src="http://techslides.com/demos/samples/sample.mp4"
-              //     type="video/mp4"
-              //   />
-              // </video>
               <video
                 className={`${styles.selectedCharacterImg} ${styles.videoHTML}`}
                 autoPlay={true}
@@ -199,6 +191,9 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
           Go To Lobby
         </GradientBtn>
       </div>
+      <button onClick={() => console.log(userStream)}>
+        userStream from charSelect
+      </button>
     </div>
   );
 };

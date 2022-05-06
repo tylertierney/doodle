@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { MantineProvider, TypographyStylesProvider } from "@mantine/core";
 import GameProvider from "./context/GameContext";
+import PeerProvider from "./context/PeerContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +21,9 @@ ReactDOM.render(
         }}
       >
         <GameProvider>
-          <App />
+          <PeerProvider>
+            <App />
+          </PeerProvider>
         </GameProvider>
       </TypographyStylesProvider>
     </MantineProvider>

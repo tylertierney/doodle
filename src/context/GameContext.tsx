@@ -17,6 +17,7 @@ export interface Player {
   id: string;
   peerId: string;
   usingVideo: boolean;
+  stream?: MediaStream;
 }
 
 export interface Turn {
@@ -39,8 +40,6 @@ export interface GameContextType {
   currentPlayer: null | Player;
   setCurrentPlayer: (currentPlayer: Player | null) => void;
   timer: number;
-  peerId: string;
-  setPeerId: Dispatch<SetStateAction<string>>;
   usingVideo: boolean;
   setUsingVideo: Dispatch<SetStateAction<boolean>>;
 }
@@ -56,8 +55,6 @@ const initial: GameContextType = {
   currentPlayer: null,
   setCurrentPlayer: () => {},
   timer: 90,
-  peerId: "",
-  setPeerId: () => {},
   usingVideo: false,
   setUsingVideo: () => {},
 };
@@ -71,7 +68,6 @@ const GameProvider: React.FC = ({ children }) => {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
   const [timer, setTimer] = useState(90);
-  const [peerId, setPeerId] = useState<string>("");
   const [usingVideo, setUsingVideo] = useState<boolean>(false);
 
   const getIpAddress = async () => {
@@ -93,6 +89,7 @@ const GameProvider: React.FC = ({ children }) => {
         setPlayers(gameFromLocal.players);
         setIpAddress(gameFromLocal.ipAddress);
         setTurns(gameFromLocal.turns);
+        // setUsingVideo(gameFromLocal.usingVideo);
       }
     }
 
@@ -108,6 +105,7 @@ const GameProvider: React.FC = ({ children }) => {
       gameStage,
       turns,
       currentPlayer,
+      // usingVideo,
     };
     localStorage.setItem("doodle-context", JSON.stringify(context));
   }, [
@@ -117,6 +115,7 @@ const GameProvider: React.FC = ({ children }) => {
     turns.length,
     currentPlayer,
     turns[turns.length - 1]?.drawing,
+    // usingVideo,
   ]);
 
   const ctx: GameContextType = {
@@ -130,8 +129,6 @@ const GameProvider: React.FC = ({ children }) => {
     currentPlayer,
     setCurrentPlayer,
     timer,
-    peerId,
-    setPeerId,
     usingVideo,
     setUsingVideo,
   };
