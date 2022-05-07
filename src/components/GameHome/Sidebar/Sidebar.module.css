@@ -40,6 +40,15 @@
     margin: 0;
 }
 
+.videoHTML {
+    object-fit: cover;
+    background-image: url('../../../assets/svg/nocamera.svg');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(60, 65, 86);
+}
+
 @media only screen and (max-width: 670px) {
     .left {
         order: 2;

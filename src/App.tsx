@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
 import GameHome from "./components/GameHome/GameHome";
+import Navbar from "./components/Navbar/Navbar";
 import Welcome from "./components/Welcome/Welcome";
 import { Turn, useGame } from "./context/GameContext";
 import { usePeer } from "./context/PeerContext";
@@ -16,12 +17,11 @@ function App() {
     setTurns,
     currentPlayer,
     setCurrentPlayer,
-    players,
   } = useGame();
   const [drawingData, setDrawingData] = useState("");
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
-  const { userStream, streams } = usePeer();
+  const { streams } = usePeer();
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -76,17 +76,11 @@ function App() {
 
   return (
     <div className="appContainer">
+      <Navbar />
       {getGameSection(gameStage)}
       {currentPlayer?.isVIP && (
         <button onClick={() => socket.emit("endGame")}>end game</button>
       )}
-      <button onClick={() => console.log(streams)}>streams</button>
-      <div style={{ border: "2px solid red" }}>
-        Current User<video autoPlay={true} ref={currentUserVideoRef}></video>
-      </div>
-      <div style={{ border: "2px solid green" }}>
-        Remote User<video autoPlay={true} ref={remoteVideoRef}></video>
-      </div>
     </div>
   );
 }

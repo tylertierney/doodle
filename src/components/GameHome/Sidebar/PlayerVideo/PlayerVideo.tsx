@@ -19,8 +19,9 @@ const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream, isMuted }) => {
     <video
       ref={videoRef}
       autoPlay={true}
-      className={`${styles.characterImg}`}
+      className={`${styles.characterImg} ${styles.videoHTML}`}
       muted={isMuted}
+      playsInline
     ></video>
   );
 };

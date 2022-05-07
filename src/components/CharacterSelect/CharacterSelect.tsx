@@ -151,6 +151,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                 className={`${styles.selectedCharacterImg} ${styles.videoHTML}`}
                 autoPlay={true}
                 ref={userVideoRef}
+                playsInline
               ></video>
             )}
             <Text
@@ -198,9 +199,6 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
           Go To Lobby
         </GradientBtn>
       </div>
-      <button onClick={() => console.log(userStream)}>
-        userStream from charSelect
-      </button>
     </div>
   );
 };

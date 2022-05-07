@@ -17,6 +17,8 @@ const WordSelection: FC<WordSelectionProps> = ({ isArtist }) => {
     socket.emit("selectWord", word);
   };
 
+  const artist = turns[turns.length - 1]?.artist.nickname;
+
   return (
     <div className={styles.wordSelectionBackground} data-testid="WordSelection">
       {isArtist ? (
@@ -46,7 +48,7 @@ const WordSelection: FC<WordSelectionProps> = ({ isArtist }) => {
         </div>
       ) : (
         <Title style={{ width: "400px", maxWidth: "90%", textAlign: "center" }}>
-          Waiting on someone to choose a word
+          Waiting on {artist} to choose a word
         </Title>
       )}
     </div>

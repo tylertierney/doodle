@@ -22,6 +22,10 @@ interface PeerContextType {
   setUserStream: (userStream: MediaStream | null) => void;
   streams: StreamsIdentifier;
   setStreams: Dispatch<SetStateAction<StreamsIdentifier>>;
+  micMuted: boolean;
+  setMicMuted: Dispatch<SetStateAction<boolean>>;
+  videoMuted: boolean;
+  setVideoMuted: Dispatch<SetStateAction<boolean>>;
 }
 
 const initial: PeerContextType = {
@@ -33,6 +37,10 @@ const initial: PeerContextType = {
   setUserStream: () => {},
   streams: {} as StreamsIdentifier,
   setStreams: () => {},
+  micMuted: false,
+  setMicMuted: () => {},
+  videoMuted: false,
+  setVideoMuted: () => {},
 };
 
 export const PeerContext = createContext<PeerContextType>(initial);
@@ -43,6 +51,8 @@ const PeerProvider: React.FC = ({ children }) => {
   const [userStream, setUserStream] = useState<MediaStream | null>(null);
   const [streams, setStreams] = useState<StreamsIdentifier>({});
   const { players, currentPlayer } = useGame();
+  const [micMuted, setMicMuted] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(false);
 
   useEffect(() => {
     const peerInstance = new Peer();
@@ -86,6 +96,16 @@ const PeerProvider: React.FC = ({ children }) => {
     }
   }, [players.length, userStream]);
 
+  if (userStream) {
+    micMuted
+      ? (userStream.getAudioTracks()[0].enabled = false)
+      : (userStream.getAudioTracks()[0].enabled = true);
+
+    videoMuted
+      ? (userStream.getVideoTracks()[0].enabled = false)
+      : (userStream.getVideoTracks()[0].enabled = true);
+  }
+
   const ctx: PeerContextType = {
     peer,
     setPeer,
@@ -95,6 +115,10 @@ const PeerProvider: React.FC = ({ children }) => {
     setUserStream,
     streams,
     setStreams,
+    micMuted,
+    setMicMuted,
+    videoMuted,
+    setVideoMuted,
   };
 
   return <PeerContext.Provider value={ctx}>{children}</PeerContext.Provider>;

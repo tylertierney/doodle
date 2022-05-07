@@ -2,7 +2,8 @@
     max-width: 800px;
     position: relative;
     width: 100vw;
-    height: 100vh;
+    min-height: 90vh;
+    /* height: 100vh; */
 }
 
 .welcomeContainer{

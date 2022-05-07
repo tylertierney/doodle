@@ -1,0 +1,37 @@
+.navContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.2rem 1rem;
+}
+
+.controlsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.micBtn {
+    cursor: pointer;
+    color: rgb(76, 76, 76);
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    background-color: rgb(219, 219, 219);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s ease-in-out;
+}
+
+.micBtn:hover{
+    background-color: rgb(230, 230, 230);
+}
+
+.micBtn svg {
+    height: 20px;
+    width: 30px;
+}

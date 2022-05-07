@@ -79,7 +79,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 {player.nickname}
               </Text>
             </div>
-            <button onClick={() => console.log(userStream)}>ref</button>
           </div>
         );
       })}
