@@ -8,7 +8,7 @@ import { GiQueenCrown } from "react-icons/gi";
 import socket from "../../socket";
 import GradientBtn from "../GradientBtn/GradientBtn";
 import TabsMenu from "./TabsMenu/TabsMenu";
-import { renderVideo } from "../../utils/utils";
+import { generateRoomCode, renderVideo } from "../../utils/utils";
 import { usePeer } from "../../context/PeerContext";
 
 interface CharacterSelectProps {
@@ -22,6 +22,9 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     gameStage,
     usingVideo,
     setUsingVideo,
+    roomCode,
+    setRoomCode,
+    roomCodeInput,
   } = useGame();
   const { peerId, setUserStream, userStream, setStreams } = usePeer();
   const [charactersArr, setCharactersArr] =
@@ -62,8 +65,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     };
     setCurrentPlayer(playerObj);
     existingGame
-      ? socket.emit("joinLobby", playerObj)
-      : socket.emit("createLobby", playerObj);
+      ? socket.emit("joinLobby", playerObj, roomCodeInput)
+      : socket.emit("createLobby", playerObj, roomCode);
     setGameStage("waitingForPlayers");
   };
 
@@ -100,6 +103,12 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       getUserMedia();
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!existingGame) {
+      setRoomCode(generateRoomCode());
+    }
+  }, []);
 
   return (
     <div className={styles.pageContainer}>

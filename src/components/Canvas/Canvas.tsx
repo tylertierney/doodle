@@ -19,7 +19,7 @@ const Canvas: React.FC<CanvasProps> = ({
   brushColor,
   canvasRef,
 }) => {
-  const { turns, currentPlayer } = useGame();
+  const { turns, currentPlayer, roomCode } = useGame();
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const canvasSize = useCanvasResize(canvasContainerRef);
 
@@ -41,7 +41,7 @@ const Canvas: React.FC<CanvasProps> = ({
         brushRadius={brushRadius}
         catenaryColor={brushColor}
         lazyRadius={0}
-        onChange={(e) => socket.emit("draw", e.getSaveData())}
+        onChange={(e) => socket.emit("draw", e.getSaveData(), roomCode)}
         immediateLoading={true}
         canvasWidth={canvasSize.width}
         canvasHeight={canvasSize.height}

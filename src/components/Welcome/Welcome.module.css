@@ -3,15 +3,46 @@
     position: relative;
     width: 100vw;
     min-height: 90vh;
-    /* height: 100vh; */
 }
 
 .welcomeContainer{
     width: 90%;
     height: 90%;
-    padding: 1rem;
+    padding: 1.6rem;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0.6rem 0;
+    margin: 0.6rem 0;
 }
 
 p{
     margin: 1rem 0;
+}
+
+.roomCodeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+}
+
+.roomCodeInput {
+    font-size: 1.5rem;
+    border: 2px solid var(--lightorange);
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    color: #474747;
+}
+
+.roomCodeInput:focus {
+    outline: none;
 }

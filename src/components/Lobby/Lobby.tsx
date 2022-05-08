@@ -6,10 +6,10 @@ import GradientBtn from "../GradientBtn/GradientBtn";
 import socket from "../../socket";
 
 const Lobby: React.FC = () => {
-  const { players, setGameStage, currentPlayer } = useGame();
+  const { players, setGameStage, currentPlayer, roomCode } = useGame();
 
   const handleStart = () => {
-    socket.emit("startGame");
+    socket.emit("startGame", roomCode);
     setGameStage("wordSelection");
   };
 
@@ -19,6 +19,10 @@ const Lobby: React.FC = () => {
 
   return (
     <div className={styles.waitingForPlayersBackground}>
+      <div className={styles.roomCodeContainer}>
+        <span className={styles.roomCodeText}>Room Code</span>
+        <span className={styles.roomCode}>{roomCode}</span>
+      </div>
       <div
         className={styles.waitingForPlayersContainer}
         style={{ width: "86%", height: "86%" }}

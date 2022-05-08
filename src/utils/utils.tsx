@@ -34,3 +34,13 @@ export const renderVideo = (
     ref.current.srcObject = stream;
   }
 };
+
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+export const generateRoomCode = () => {
+  let result = "";
+  for (let i = 0; i < 4; i++) {
+    result += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return result;
+};

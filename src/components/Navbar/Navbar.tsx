@@ -10,7 +10,9 @@ const Navbar: React.FC = () => {
     <div className={styles.navContainer}>
       <div className={styles.controlsContainer}>
         <button
-          className={styles.micBtn}
+          className={`${styles.micBtn} ${
+            videoMuted ? styles.disabled : styles.enabled
+          }`}
           onClick={() => setVideoMuted(!videoMuted)}
         >
           {videoMuted ? (
@@ -20,7 +22,9 @@ const Navbar: React.FC = () => {
           )}
         </button>
         <button
-          className={styles.micBtn}
+          className={`${styles.micBtn} ${
+            micMuted ? styles.disabled : styles.enabled
+          }`}
           onClick={() => setMicMuted(!micMuted)}
         >
           {micMuted ? <FaMicrophoneSlash /> : <FaMicrophone />}

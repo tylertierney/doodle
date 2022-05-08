@@ -3,7 +3,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0.2rem 1rem;
+    padding: 0.4rem 1rem 0.2rem 1rem;
 }
 
 .controlsContainer {
@@ -24,12 +24,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.1s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
-.micBtn:hover{
+.enabled {
+    color: white;
+    background-color: var(--orangered);
+}
+
+.enabled:hover {
+    background-color: rgb(255, 132, 0);
+}
+
+.disabled {
+    color: rgb(76, 76, 76);
+    background-color: rgb(219, 219, 219);;
+}
+
+.disabled:hover {
     background-color: rgb(230, 230, 230);
 }
+
+/* .micBtn:hover{
+    background-color: rgb(230, 230, 230);
+} */
 
 .micBtn svg {
     height: 20px;

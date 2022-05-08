@@ -15,7 +15,7 @@ const GuesserInterface: FC<GuesserInterfaceProps> = ({
   wordToDraw,
   drawingData,
 }) => {
-  const { currentPlayer } = useGame();
+  const { currentPlayer, roomCode } = useGame();
   const [guess, setGuess] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -28,7 +28,7 @@ const GuesserInterface: FC<GuesserInterfaceProps> = ({
     if (guessObj.text === wordToDraw.join("").toLowerCase()) {
       setIsCorrect(true);
     }
-    socket.emit("guess", guessObj);
+    socket.emit("guess", guessObj, roomCode);
     setGuess("");
   };
 

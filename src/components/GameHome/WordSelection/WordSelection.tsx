@@ -9,12 +9,12 @@ interface WordSelectionProps {
 }
 
 const WordSelection: FC<WordSelectionProps> = ({ isArtist }) => {
-  const { turns } = useGame();
+  const { turns, roomCode } = useGame();
 
   const possibleWords = turns[turns.length - 1]?.possibleWords;
 
   const handleSelectWord = (word: string) => {
-    socket.emit("selectWord", word);
+    socket.emit("selectWord", word, roomCode);
   };
 
   const artist = turns[turns.length - 1]?.artist.nickname;

@@ -42,6 +42,10 @@ export interface GameContextType {
   timer: number;
   usingVideo: boolean;
   setUsingVideo: Dispatch<SetStateAction<boolean>>;
+  roomCode: string;
+  setRoomCode: Dispatch<SetStateAction<string>>;
+  roomCodeInput: string;
+  setRoomCodeInput: Dispatch<SetStateAction<string>>;
 }
 
 const initial: GameContextType = {
@@ -57,6 +61,10 @@ const initial: GameContextType = {
   timer: 90,
   usingVideo: false,
   setUsingVideo: () => {},
+  roomCode: "",
+  setRoomCode: () => {},
+  roomCodeInput: "",
+  setRoomCodeInput: () => {},
 };
 
 export const GameContext = createContext<GameContextType>(initial);
@@ -69,6 +77,8 @@ const GameProvider: React.FC = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
   const [timer, setTimer] = useState(90);
   const [usingVideo, setUsingVideo] = useState<boolean>(false);
+  const [roomCode, setRoomCode] = useState<string>("");
+  const [roomCodeInput, setRoomCodeInput] = useState<string>("");
 
   const getIpAddress = async () => {
     socket.on("ipAddress", (ipAddress) => {
@@ -89,7 +99,9 @@ const GameProvider: React.FC = ({ children }) => {
         setPlayers(gameFromLocal.players);
         setIpAddress(gameFromLocal.ipAddress);
         setTurns(gameFromLocal.turns);
-        // setUsingVideo(gameFromLocal.usingVideo);
+        setRoomCode(gameFromLocal.roomCode);
+
+        socket.emit("getCurrentGame", gameFromLocal.roomCode);
       }
     }
 
@@ -105,7 +117,7 @@ const GameProvider: React.FC = ({ children }) => {
       gameStage,
       turns,
       currentPlayer,
-      // usingVideo,
+      roomCode,
     };
     localStorage.setItem("doodle-context", JSON.stringify(context));
   }, [
@@ -115,7 +127,7 @@ const GameProvider: React.FC = ({ children }) => {
     turns.length,
     currentPlayer,
     turns[turns.length - 1]?.drawing,
-    // usingVideo,
+    roomCode,
   ]);
 
   const ctx: GameContextType = {
@@ -131,6 +143,10 @@ const GameProvider: React.FC = ({ children }) => {
     timer,
     usingVideo,
     setUsingVideo,
+    roomCode,
+    setRoomCode,
+    roomCodeInput,
+    setRoomCodeInput,
   };
   return <GameContext.Provider value={ctx}>{children}</GameContext.Provider>;
 };

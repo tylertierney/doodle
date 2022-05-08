@@ -6,9 +6,16 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { useGame } from "../../context/GameContext";
 import GradientBtn from "../GradientBtn/GradientBtn";
 import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
+import { useState } from "react";
 
-const Welcome: React.FC = () => {
-  const { setGameStage } = useGame();
+interface WelcomeProps {
+  enteringRoomCode: boolean;
+}
+
+const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
+  const { setGameStage, roomCodeInput, setRoomCodeInput } = useGame();
+
+  // const [newRoomCode, setNewRoomCode] = useState("");
 
   return (
     <Stack align="center" justify="center" className={styles.welcomeBackground}>
@@ -18,69 +25,86 @@ const Welcome: React.FC = () => {
         justify="center"
         className={styles.welcomeContainer}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            width: "100%",
-            padding: "0.6rem 0",
-            margin: "0.6rem 0",
-          }}
-        >
-          <Title
-            align="center"
-            style={{ fontSize: "2.1rem", margin: 0 }}
-            order={1}
-          >
-            Welcome to&nbsp;
-          </Title>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <KadoodleTextSVG />
-            <Title
-              align="center"
-              style={{
-                fontSize: "3.6rem",
-                margin: 0,
-                transform: "translate(-6px, -3px)",
-                color: "var(--lightorange)",
-              }}
-              order={1}
+        {enteringRoomCode ? (
+          <>
+            <div className={styles.roomCodeContainer}>
+              <Title align="center" style={{ fontSize: "2.1rem", margin: 0 }}>
+                Enter a room code
+              </Title>
+              <input
+                className={styles.roomCodeInput}
+                type="text"
+                value={roomCodeInput}
+                onChange={(e) => setRoomCodeInput(e.target.value.toUpperCase())}
+                maxLength={4}
+              />
+            </div>
+            <GradientBtn
+              fullWidth={true}
+              rightIcon={<BsArrowRightCircle size="1.4rem" />}
+              onClick={() => setGameStage("characterSelect_joining_game")}
             >
-              !
-            </Title>
-          </div>
-        </div>
-        <Text
-          size="lg"
-          align="center"
-          style={{ maxWidth: "500px", padding: "0 0.5rem" }}
-          component="p"
-        >
-          Kadoodle is a multiplayer guessing game like Pictionary or Drawful.
-          Friends who are connected to your WiFi network can join your lobby and
-          play.
-        </Text>
-        <Group position="center">
-          <Button
-            variant="outline"
-            color="orange"
-            radius="md"
-            size="lg"
-            rightIcon={<BsArrowRightCircle size="1.4rem" />}
-            onClick={() => setGameStage("characterSelect_joining_game")}
-          >
-            Join Game
-          </Button>
-          <GradientBtn
-            fullWidth={false}
-            rightIcon={<BiPlusCircle size="1.7rem" />}
-            onClick={() => setGameStage("characterSelect_creating_game")}
-          >
-            Create New Game
-          </GradientBtn>
-        </Group>
+              Join Game
+            </GradientBtn>
+          </>
+        ) : (
+          <>
+            <div className={styles.headerContainer}>
+              <Title
+                align="center"
+                style={{ fontSize: "2.1rem", margin: 0 }}
+                order={1}
+              >
+                Welcome to&nbsp;
+              </Title>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <KadoodleTextSVG />
+                <Title
+                  align="center"
+                  style={{
+                    fontSize: "3.6rem",
+                    margin: 0,
+                    transform: "translate(-6px, -3px)",
+                    color: "var(--lightorange)",
+                  }}
+                  order={1}
+                >
+                  !
+                </Title>
+              </div>
+            </div>
+            <Text
+              size="lg"
+              align="center"
+              style={{ maxWidth: "500px", padding: "0 0.5rem" }}
+              component="p"
+            >
+              Kadoodle is a multiplayer guessing game like Pictionary or
+              Drawful. Friends who are connected to your WiFi network can join
+              your lobby and play.
+            </Text>
+            <Group position="center">
+              <Button
+                variant="outline"
+                color="orange"
+                radius="md"
+                size="lg"
+                rightIcon={<BsArrowRightCircle size="1.4rem" />}
+                // onClick={() => setGameStage("characterSelect_joining_game")}
+                onClick={() => setGameStage("entering_roomCode")}
+              >
+                Join Game
+              </Button>
+              <GradientBtn
+                fullWidth={false}
+                rightIcon={<BiPlusCircle size="1.7rem" />}
+                onClick={() => setGameStage("characterSelect_creating_game")}
+              >
+                Create New Game
+              </GradientBtn>
+            </Group>
+          </>
+        )}
       </Stack>
     </Stack>
   );

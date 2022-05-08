@@ -39,11 +39,11 @@ code {
   color: white;
   position: absolute;
   top: -20px;
-  left: -20px;
+  left: -8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: rotate(-10deg)
+  /* transform: rotate(-10deg); */
 }
 
 .crownBadgeSmall {

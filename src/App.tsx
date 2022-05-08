@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
@@ -6,7 +6,6 @@ import GameHome from "./components/GameHome/GameHome";
 import Navbar from "./components/Navbar/Navbar";
 import Welcome from "./components/Welcome/Welcome";
 import { Turn, useGame } from "./context/GameContext";
-import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
 
 function App() {
@@ -17,11 +16,11 @@ function App() {
     setTurns,
     currentPlayer,
     setCurrentPlayer,
+    roomCode,
+    setRoomCode,
+    players,
   } = useGame();
   const [drawingData, setDrawingData] = useState("");
-  const currentUserVideoRef = useRef<HTMLVideoElement>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
-  const { streams } = usePeer();
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -39,7 +38,8 @@ function App() {
     socket.on("createLobby", (players: any) => {
       setPlayers(players);
     });
-    socket.on("joinLobby", (players: any) => {
+    socket.on("joinLobby", (players: any, roomCode: any) => {
+      setRoomCode(roomCode);
       setPlayers(players);
     });
     socket.on("startGame", (turns: Turn[]) => {
@@ -50,6 +50,11 @@ function App() {
       setTurns(turns);
       setGameStage("playing");
     });
+    socket.on("getCurrentGame", (game: any) => {
+      setRoomCode(game.roomCode);
+      setTurns(game.turns);
+      setPlayers(game.players);
+    });
     socket.on("endGame", () => {
       endGame();
     });
@@ -58,7 +63,9 @@ function App() {
   const getGameSection = (gameStage: string) => {
     switch (gameStage) {
       case "initial":
-        return <Welcome />;
+        return <Welcome enteringRoomCode={false} />;
+      case "entering_roomCode":
+        return <Welcome enteringRoomCode={true} />;
       case "characterSelect_creating_game":
         return <CharacterSelect existingGame={false} />;
       case "characterSelect_joining_game":
@@ -70,7 +77,7 @@ function App() {
       case "playing":
         return <GameHome stage="playing" drawingData={drawingData} />;
       default:
-        return <Welcome />;
+        return <Welcome enteringRoomCode={false} />;
     }
   };
 
@@ -79,7 +86,12 @@ function App() {
       <Navbar />
       {getGameSection(gameStage)}
       {currentPlayer?.isVIP && (
-        <button onClick={() => socket.emit("endGame")}>end game</button>
+        <>
+          <button onClick={() => socket.emit("endGame", roomCode)}>
+            end game
+          </button>
+          <button onClick={() => console.log(players)}>players</button>
+        </>
       )}
     </div>
   );
