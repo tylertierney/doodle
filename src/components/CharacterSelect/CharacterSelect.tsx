@@ -20,8 +20,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
     setGameStage,
     setCurrentPlayer,
     gameStage,
-    usingVideo,
-    setUsingVideo,
+    usingMedia,
+    setUsingMedia,
     roomCode,
     setRoomCode,
     roomCodeInput,
@@ -61,7 +61,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       isVIP: existingGame ? false : true,
       id: generateId(),
       peerId,
-      usingVideo,
+      usingMedia,
     };
     setCurrentPlayer(playerObj);
     existingGame
@@ -85,11 +85,11 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       .getUserMedia({ video: true, audio: true })
       .then((stream: MediaStream) => {
         setUserStream(stream);
-        setUsingVideo(true);
+        setUsingMedia(true);
         renderVideo(stream, userVideoRef);
       })
       .catch((err) => {
-        setUsingVideo(false);
+        setUsingMedia(false);
         if (err.name === "NotFoundError") {
           setErrorText(
             "Requested media device not found. Check your camera and microphone, or use an avatar instead."
@@ -101,6 +101,9 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
   useEffect(() => {
     if (activeTab === 1) {
       getUserMedia();
+    }
+    if (activeTab === 0) {
+      setUsingMedia(false);
     }
   }, [activeTab]);
 

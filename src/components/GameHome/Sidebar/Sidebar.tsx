@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <div className={styles.playerAvatarAndName}>
               <div className={styles.playerAvatarAndBadges}>
-                {player.usingVideo ? (
+                {player.usingMedia ? (
                   <PlayerVideo
                     stream={
                       player.id === currentPlayer.id

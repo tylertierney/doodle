@@ -16,7 +16,7 @@ export interface Player {
   isVIP: boolean;
   id: string;
   peerId: string;
-  usingVideo: boolean;
+  usingMedia: boolean;
   stream?: MediaStream;
 }
 
@@ -40,8 +40,8 @@ export interface GameContextType {
   currentPlayer: null | Player;
   setCurrentPlayer: (currentPlayer: Player | null) => void;
   timer: number;
-  usingVideo: boolean;
-  setUsingVideo: Dispatch<SetStateAction<boolean>>;
+  usingMedia: boolean;
+  setUsingMedia: Dispatch<SetStateAction<boolean>>;
   roomCode: string;
   setRoomCode: Dispatch<SetStateAction<string>>;
   roomCodeInput: string;
@@ -59,8 +59,8 @@ const initial: GameContextType = {
   currentPlayer: null,
   setCurrentPlayer: () => {},
   timer: 90,
-  usingVideo: false,
-  setUsingVideo: () => {},
+  usingMedia: false,
+  setUsingMedia: () => {},
   roomCode: "",
   setRoomCode: () => {},
   roomCodeInput: "",
@@ -76,7 +76,7 @@ const GameProvider: React.FC = ({ children }) => {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<null | Player>(null);
   const [timer, setTimer] = useState(90);
-  const [usingVideo, setUsingVideo] = useState<boolean>(false);
+  const [usingMedia, setUsingMedia] = useState<boolean>(false);
   const [roomCode, setRoomCode] = useState<string>("");
   const [roomCodeInput, setRoomCodeInput] = useState<string>("");
 
@@ -141,8 +141,8 @@ const GameProvider: React.FC = ({ children }) => {
     currentPlayer,
     setCurrentPlayer,
     timer,
-    usingVideo,
-    setUsingVideo,
+    usingMedia,
+    setUsingMedia,
     roomCode,
     setRoomCode,
     roomCodeInput,
