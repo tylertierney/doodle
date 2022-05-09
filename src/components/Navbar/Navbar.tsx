@@ -5,6 +5,7 @@ import { usePeer } from "../../context/PeerContext";
 import styles from "./Navbar.module.css";
 import { useState } from "react";
 import { useGame } from "../../context/GameContext";
+import NavMenu from "../NavMenu/NavMenu";
 
 const Navbar: React.FC = () => {
   const { micMuted, setMicMuted, videoMuted, setVideoMuted } = usePeer();
@@ -50,6 +51,7 @@ const Navbar: React.FC = () => {
           )}
         </button>
       </div>
+      <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );
 };

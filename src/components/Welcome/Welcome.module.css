@@ -47,3 +47,8 @@ p{
 .roomCodeInput:focus {
     outline: none;
 }
+
+.errorText {
+    color: rgb(255, 104, 104);
+    font-size: 1.05rem;
+}

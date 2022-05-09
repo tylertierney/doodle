@@ -207,6 +207,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
           rightIcon={<BsArrowRightCircle size="1.4rem" />}
           onClick={() => handleSubmit()}
           style={{ marginLeft: "auto" }}
+          disabled={false}
         >
           Go To Lobby
         </GradientBtn>

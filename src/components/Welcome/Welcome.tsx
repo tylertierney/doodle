@@ -1,12 +1,13 @@
 import styles from "./Welcome.module.css";
 import PaperSVG from "../PaperSVG/PaperSVG";
 import { Button, Group, Stack, Text, Title } from "@mantine/core";
-import { BiPlusCircle } from "react-icons/bi";
+import { BiPlusCircle, BiLoaderAlt } from "react-icons/bi";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { useGame } from "../../context/GameContext";
 import GradientBtn from "../GradientBtn/GradientBtn";
 import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import socket from "../../socket";
 
 interface WelcomeProps {
   enteringRoomCode: boolean;
@@ -14,8 +15,32 @@ interface WelcomeProps {
 
 const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
   const { setGameStage, roomCodeInput, setRoomCodeInput } = useGame();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  // const [newRoomCode, setNewRoomCode] = useState("");
+  useEffect(() => {
+    socket.on("checkIfRoomExists", (roomExists) => {
+      setIsLoading(false);
+      if (roomExists) {
+        setError("");
+        setGameStage("characterSelect_joining_game");
+        return;
+      }
+
+      setError("That game doesn't exist, try a different code.");
+    });
+  }, []);
+
+  const handleSubmit = () => {
+    setIsLoading(true);
+    socket.emit("checkIfRoomExists", roomCodeInput);
+  };
+
+  let submitBtnDisabled = true;
+
+  if (roomCodeInput.length === 4 && !isLoading) {
+    submitBtnDisabled = false;
+  }
 
   return (
     <Stack align="center" justify="center" className={styles.welcomeBackground}>
@@ -39,12 +64,31 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
                 maxLength={4}
               />
             </div>
+            {error && (
+              <Text align="center" className={styles.errorText}>
+                {error}
+              </Text>
+            )}
             <GradientBtn
               fullWidth={true}
-              rightIcon={<BsArrowRightCircle size="1.4rem" />}
-              onClick={() => setGameStage("characterSelect_joining_game")}
+              rightIcon={
+                isLoading ? null : <BsArrowRightCircle size="1.4rem" />
+              }
+              onClick={() => handleSubmit()}
+              disabled={submitBtnDisabled}
             >
-              Join Game
+              {isLoading ? (
+                <BiLoaderAlt
+                  style={{
+                    color: "white",
+                    fontSize: "2rem",
+                    strokeWidth: "3px",
+                  }}
+                  className="loader"
+                />
+              ) : (
+                "Join Game"
+              )}
             </GradientBtn>
           </>
         ) : (
@@ -89,7 +133,6 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
                 radius="md"
                 size="lg"
                 rightIcon={<BsArrowRightCircle size="1.4rem" />}
-                // onClick={() => setGameStage("characterSelect_joining_game")}
                 onClick={() => setGameStage("entering_roomCode")}
               >
                 Join Game
@@ -97,6 +140,7 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
               <GradientBtn
                 fullWidth={false}
                 rightIcon={<BiPlusCircle size="1.7rem" />}
+                disabled={false}
                 onClick={() => setGameStage("characterSelect_creating_game")}
               >
                 Create New Game

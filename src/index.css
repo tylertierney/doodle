@@ -26,11 +26,6 @@ body {
   padding: 0 0 1rem 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .crownBadge{
   width: 40px;
   height: 40px;
@@ -43,7 +38,6 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transform: rotate(-10deg); */
 }
 
 .crownBadgeSmall {
@@ -58,5 +52,21 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.loader {
+  animation: spin 1s infinite linear forwards;
+  transform: rotate(0deg);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+
 }
 

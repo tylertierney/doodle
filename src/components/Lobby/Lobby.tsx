@@ -44,6 +44,7 @@ const Lobby: React.FC = () => {
               fullWidth={true}
               rightIcon={<BsArrowRightCircle size="1.4rem" />}
               onClick={() => handleStart()}
+              disabled={false}
             >
               Everyone in? Start Game!
             </GradientBtn>

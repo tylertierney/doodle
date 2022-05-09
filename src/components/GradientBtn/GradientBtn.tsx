@@ -5,6 +5,7 @@ interface GradientBtnProps {
   fullWidth: boolean;
   rightIcon: React.ReactNode;
   onClick: () => void;
+  disabled: boolean;
   style?: CSS.Properties;
 }
 const GradientBtn: React.FC<GradientBtnProps> = ({
@@ -12,6 +13,7 @@ const GradientBtn: React.FC<GradientBtnProps> = ({
   fullWidth,
   rightIcon,
   onClick,
+  disabled,
   style,
 }) => {
   return (
@@ -24,6 +26,7 @@ const GradientBtn: React.FC<GradientBtnProps> = ({
       rightIcon={rightIcon}
       onClick={onClick}
       style={style}
+      disabled={disabled}
     >
       {children}
     </Button>
