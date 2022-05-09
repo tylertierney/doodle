@@ -27,13 +27,15 @@ const Lobby: React.FC = () => {
         className={styles.waitingForPlayersContainer}
         style={{ width: "86%", height: "86%" }}
       >
-        <Title order={1} style={{ margin: 0 }}>
+        <Title order={1} style={{ margin: 0 }} align="center">
           <span className={styles.playerCount}>{players.length}</span>
           &nbsp;player
           {players.length > 1 && <span>s</span>} in the lobby
         </Title>
         <div className={styles.waitingForPlayersMessageContainer}>
-          <Text style={{ fontSize: "1.4rem" }}>{message}</Text>
+          <Text style={{ fontSize: "1.4rem" }} align="center">
+            {message}
+          </Text>
           <Loader size="xl" color="orange" variant="dots" />
         </div>
         {currentPlayer?.isVIP && (

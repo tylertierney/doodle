@@ -46,3 +46,10 @@
 .wordBtn:active {
     transform: translate(2px, 2px);
 }
+
+@media only screen and (max-width: 760px) {
+    .wordSelectionBackground {
+        order: 1;
+        width: 100%;
+    }
+}

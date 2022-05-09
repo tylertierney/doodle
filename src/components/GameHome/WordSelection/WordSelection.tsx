@@ -47,7 +47,7 @@ const WordSelection: FC<WordSelectionProps> = ({ isArtist }) => {
           </div>
         </div>
       ) : (
-        <Title style={{ width: "400px", maxWidth: "90%", textAlign: "center" }}>
+        <Title style={{ width: "400px", maxWidth: "80%", textAlign: "center" }}>
           Waiting on {artist} to choose a word
         </Title>
       )}

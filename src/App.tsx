@@ -6,7 +6,9 @@ import GameHome from "./components/GameHome/GameHome";
 import Navbar from "./components/Navbar/Navbar";
 import Welcome from "./components/Welcome/Welcome";
 import { Turn, useGame } from "./context/GameContext";
+import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
+import Peer from "peerjs";
 
 function App() {
   const {
@@ -21,6 +23,7 @@ function App() {
     players,
   } = useGame();
   const [drawingData, setDrawingData] = useState("");
+  const { peer, setStreams, setPeerId, peerId, streams, setPeer } = usePeer();
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -58,7 +61,7 @@ function App() {
     socket.on("endGame", () => {
       endGame();
     });
-  }, [currentPlayer?.id]);
+  }, [currentPlayer?.id, peer]);
 
   const getGameSection = (gameStage: string) => {
     switch (gameStage) {
@@ -85,14 +88,11 @@ function App() {
     <div className="appContainer">
       <Navbar />
       {getGameSection(gameStage)}
-      {currentPlayer?.isVIP && (
-        <>
-          <button onClick={() => socket.emit("endGame", roomCode)}>
-            end game
-          </button>
-          <button onClick={() => console.log(players)}>players</button>
-        </>
-      )}
+      <>
+        <button onClick={() => socket.emit("endGame", roomCode)}>
+          end game
+        </button>
+      </>
     </div>
   );
 }

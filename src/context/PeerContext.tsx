@@ -7,7 +7,9 @@ import {
   useState,
 } from "react";
 import Peer from "peerjs";
-import { useGame } from "./GameContext";
+import { Player, useGame } from "./GameContext";
+import socket from "../socket";
+import { getLocalStorage } from "../utils/utils";
 
 export interface StreamsIdentifier {
   [key: string]: MediaStream;
@@ -50,12 +52,16 @@ const PeerProvider: React.FC = ({ children }) => {
   const [peerId, setPeerId] = useState<string>("");
   const [userStream, setUserStream] = useState<MediaStream | null>(null);
   const [streams, setStreams] = useState<StreamsIdentifier>({});
-  const { players, currentPlayer } = useGame();
+  const { players } = useGame();
   const [micMuted, setMicMuted] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
 
   useEffect(() => {
-    const peerInstance = new Peer();
+    let existingPeerId: string | undefined;
+    const currentPlayer = getLocalStorage("currentPlayer");
+    if (currentPlayer?.peerId) existingPeerId = currentPlayer.peerId;
+
+    const peerInstance = new Peer(existingPeerId);
     peerInstance.on("open", (id: string) => {
       setPeerId(id);
     });

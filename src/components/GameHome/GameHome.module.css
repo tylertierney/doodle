@@ -25,5 +25,10 @@
 @media only screen and (max-width: 760px) {
     .interfaceContainer {
         order: 1;
+        width: 100%;
+    }
+
+    .gameHomeContainer {
+        flex-direction: column;
     }
 }

@@ -79,9 +79,8 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
               style={{ maxWidth: "500px", padding: "0 0.5rem" }}
               component="p"
             >
-              Kadoodle is a multiplayer guessing game like Pictionary or
-              Drawful. Friends who are connected to your WiFi network can join
-              your lobby and play.
+              Kadoodle is a multiplayer drawing + guessing game. Create a lobby
+              and invite friends to your game, or join an existing one.
             </Text>
             <Group position="center">
               <Button
