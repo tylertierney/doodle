@@ -61,7 +61,7 @@ function App() {
       setPlayers(game.players);
     });
     socket.on("addedPoints", (players) => {
-      console.log(players);
+      setPlayers(players);
     });
     socket.on("endGame", () => {
       endGame();
