@@ -5,8 +5,8 @@ import { Text } from "@mantine/core";
 const Footer: React.FC = () => {
   return (
     <div className={styles.footer}>
-      <KadoodleKSVG style={{ height: "100px" }} />
-      <Text color="white" size="xl" weight="bold">
+      <KadoodleKSVG style={{ height: "100px", opacity: 0.5 }} />
+      <Text color="white" size="xl" weight="bold" style={{ opacity: 0.5 }}>
         made by&nbsp;
         <a
           href="https://tylertierney.com"

@@ -8,13 +8,16 @@ import GradientBtn from "../GradientBtn/GradientBtn";
 import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
 import { useEffect, useState } from "react";
 import socket from "../../socket";
+import { IoIosArrowBack } from "react-icons/io";
+import BackButton from "../BackButton/BackButton";
 
 interface WelcomeProps {
   enteringRoomCode: boolean;
 }
 
 const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
-  const { setGameStage, roomCodeInput, setRoomCodeInput } = useGame();
+  const { gameStage, setGameStage, roomCodeInput, setRoomCodeInput } =
+    useGame();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,11 +47,17 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
 
   return (
     <Stack align="center" justify="center" className={styles.welcomeBackground}>
+      <div className={styles.backBtnContainer}>
+        {gameStage !== "initial" && (
+          <BackButton onClick={() => setGameStage("initial")} />
+        )}
+      </div>
       <PaperSVG />
       <Stack
         align="center"
         justify="center"
         className={styles.welcomeContainer}
+        style={{ height: "100%", flexGrow: 1 }}
       >
         {enteringRoomCode ? (
           <>

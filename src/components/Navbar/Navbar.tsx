@@ -6,15 +6,38 @@ import styles from "./Navbar.module.css";
 import { useState } from "react";
 import { useGame } from "../../context/GameContext";
 import NavMenu from "../NavMenu/NavMenu";
+import BackButton from "../BackButton/BackButton";
 
 const Navbar: React.FC = () => {
   const { micMuted, setMicMuted, videoMuted, setVideoMuted } = usePeer();
-  const { usingMedia } = useGame();
+  const { usingMedia, gameStage, setGameStage } = useGame();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const backBtnStyles = { color: "white", backgroundColor: "var(--orangered)" };
+
+  const getBackButton = (gameStage: string) => {
+    if (gameStage === "characterSelect_joining_game") {
+      return (
+        <BackButton
+          onClick={() => setGameStage("entering_roomCode")}
+          style={backBtnStyles}
+        />
+      );
+    }
+    if (gameStage === "characterSelect_creating_game") {
+      return (
+        <BackButton
+          onClick={() => setGameStage("initial")}
+          style={backBtnStyles}
+        />
+      );
+    }
+  };
+
   return (
     <div className={styles.navContainer}>
+      <div className={styles.backBtnContainer}>{getBackButton(gameStage)}</div>
       <div className={styles.controlsContainer}>
         {usingMedia && (
           <>
