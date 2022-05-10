@@ -8,7 +8,6 @@ import GradientBtn from "../GradientBtn/GradientBtn";
 import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
 import { useEffect, useState } from "react";
 import socket from "../../socket";
-import { IoIosArrowBack } from "react-icons/io";
 import BackButton from "../BackButton/BackButton";
 
 interface WelcomeProps {
@@ -38,17 +37,19 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
       socket.off("checkIfRoomExists", callback);
     };
   }, []);
-
-  const handleSubmit = () => {
-    setIsLoading(true);
-    socket.emit("checkIfRoomExists", roomCodeInput);
-  };
-
   let submitBtnDisabled = true;
 
   if (roomCodeInput.length === 4 && !isLoading) {
     submitBtnDisabled = false;
   }
+
+  const handleSubmit = () => {
+    if (submitBtnDisabled) {
+      return;
+    }
+    setIsLoading(true);
+    socket.emit("checkIfRoomExists", roomCodeInput);
+  };
 
   return (
     <Stack align="center" justify="center" className={styles.welcomeBackground}>
