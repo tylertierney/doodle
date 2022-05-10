@@ -76,6 +76,7 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
               }
               onClick={() => handleSubmit()}
               disabled={submitBtnDisabled}
+              style={{ color: "white" }}
             >
               {isLoading ? (
                 <BiLoaderAlt

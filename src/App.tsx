@@ -52,6 +52,10 @@ function App() {
       setGameStage("playing");
     });
     socket.on("getCurrentGame", (game: any) => {
+      if (!game) {
+        endGame();
+        return;
+      }
       setRoomCode(game.roomCode);
       setTurns(game.turns);
       setPlayers(game.players);
