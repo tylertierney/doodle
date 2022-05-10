@@ -23,9 +23,12 @@ const GuesserInterface: FC<GuesserInterfaceProps> = ({
     e.preventDefault();
     const guessObj = {
       nickname: currentPlayer?.nickname,
+      id: currentPlayer?.id,
       text: guess.toLowerCase().trim(),
+      isCorrect: false,
     };
     if (guessObj.text === wordToDraw.join("").toLowerCase()) {
+      guessObj.isCorrect = true;
       setIsCorrect(true);
     }
     socket.emit("guess", guessObj, roomCode);

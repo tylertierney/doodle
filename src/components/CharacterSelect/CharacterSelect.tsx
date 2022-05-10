@@ -62,6 +62,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
       id: generateId(),
       peerId,
       usingMedia,
+      points: 0,
     };
     setCurrentPlayer(playerObj);
     existingGame

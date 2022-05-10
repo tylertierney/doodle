@@ -55,9 +55,14 @@ const GuessesProvider: React.FC = ({ children }) => {
   }, [guesses]);
 
   useEffect(() => {
-    socket.on("guess", (guess) => {
+    const callback = (guess: any) => {
       addGuess(guess);
-    });
+    };
+    socket.on("guess", callback);
+
+    return () => {
+      socket.off("guess", callback);
+    };
   }, [socket]);
 
   return (

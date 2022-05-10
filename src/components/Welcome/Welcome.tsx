@@ -22,16 +22,21 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    socket.on("checkIfRoomExists", (roomExists) => {
+    const callback = (roomExists: boolean) => {
       setIsLoading(false);
       if (roomExists) {
         setError("");
         setGameStage("characterSelect_joining_game");
         return;
       }
-
       setError("That game doesn't exist, try a different code.");
-    });
+    };
+
+    socket.on("checkIfRoomExists", callback);
+
+    return () => {
+      socket.off("checkIfRoomExists", callback);
+    };
   }, []);
 
   const handleSubmit = () => {

@@ -18,6 +18,7 @@ export interface Player {
   peerId: string;
   usingMedia: boolean;
   stream?: MediaStream;
+  points: number;
 }
 
 export interface Turn {

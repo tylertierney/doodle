@@ -13,9 +13,11 @@ const Lobby: React.FC = () => {
     setGameStage("wordSelection");
   };
 
+  const hostName = players.filter((player) => player.isVIP)[0]?.nickname;
+
   const message = currentPlayer?.isVIP
     ? "Waiting for others to join..."
-    : "Waiting for host to start...";
+    : `Waiting for ${hostName || "host"} to start the game...`;
 
   return (
     <div className={styles.waitingForPlayersBackground}>

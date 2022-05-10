@@ -60,6 +60,9 @@ function App() {
       setTurns(game.turns);
       setPlayers(game.players);
     });
+    socket.on("addedPoints", (players) => {
+      console.log(players);
+    });
     socket.on("endGame", () => {
       endGame();
     });
