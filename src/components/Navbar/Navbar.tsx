@@ -3,16 +3,18 @@ import { BsCameraVideoFill, BsCameraVideoOffFill } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { usePeer } from "../../context/PeerContext";
 import styles from "./Navbar.module.css";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useGame } from "../../context/GameContext";
-import NavMenu from "../NavMenu/NavMenu";
 import BackButton from "../BackButton/BackButton";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  menuOpen: boolean;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ menuOpen, setMenuOpen }) => {
   const { micMuted, setMicMuted, videoMuted, setVideoMuted } = usePeer();
   const { usingMedia, gameStage, setGameStage } = useGame();
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const backBtnStyles = { color: "white", backgroundColor: "var(--orangered)" };
 
@@ -42,7 +44,7 @@ const Navbar: React.FC = () => {
         {usingMedia && (
           <>
             <button
-              className={`${styles.micBtn} ${
+              className={`${styles.buttons} ${
                 videoMuted ? styles.disabled : styles.enabled
               }`}
               onClick={() => setVideoMuted(!videoMuted)}
@@ -54,7 +56,7 @@ const Navbar: React.FC = () => {
               )}
             </button>
             <button
-              className={`${styles.micBtn} ${
+              className={`${styles.buttons} ${
                 micMuted ? styles.disabled : styles.enabled
               }`}
               onClick={() => setMicMuted(!micMuted)}
@@ -64,7 +66,7 @@ const Navbar: React.FC = () => {
           </>
         )}
         <button
-          className={`${styles.micBtn} ${styles.enabled}`}
+          className={`${styles.buttons} ${styles.enabled}`}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? (
@@ -74,7 +76,6 @@ const Navbar: React.FC = () => {
           )}
         </button>
       </div>
-      <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );
 };

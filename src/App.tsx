@@ -9,6 +9,7 @@ import { Turn, useGame } from "./context/GameContext";
 import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
 import Footer from "./components/Footer/Footer";
+import NavMenu from "./components/NavMenu/NavMenu";
 
 function App() {
   const {
@@ -22,6 +23,7 @@ function App() {
   } = useGame();
   const [drawingData, setDrawingData] = useState("");
   const { peer } = usePeer();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const endGame = () => {
     localStorage.removeItem("doodle-context");
@@ -91,9 +93,10 @@ function App() {
 
   return (
     <div className="appContainer">
-      <Navbar />
+      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       {getGameSection(gameStage)}
       <Footer />
+      <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );
 }

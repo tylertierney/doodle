@@ -130,6 +130,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                 maxLength={16}
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
+                autoComplete="off"
+                autoCorrect="off"
               />
             </Stack>
             <TabsMenu

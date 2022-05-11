@@ -16,11 +16,11 @@
     z-index: 3;
 }
 
-.micBtn {
+.buttons {
     cursor: pointer;
     color: rgb(76, 76, 76);
-    height: 36px;
-    width: 36px;
+    height: 44px;
+    width: 44px;
     border-radius: 50%;
     background-color: rgb(219, 219, 219);
     border: none;
@@ -28,6 +28,10 @@
     justify-content: center;
     align-items: center;
     transition: 0.2s ease-in-out;
+}
+
+.button:focus {
+    outline: none;
 }
 
 .enabled {
@@ -48,11 +52,7 @@
     background-color: rgb(230, 230, 230);
 }
 
-/* .micBtn:hover{
-    background-color: rgb(230, 230, 230);
-} */
-
-.micBtn svg {
+.buttons svg {
     height: 20px;
     width: 30px;
 }

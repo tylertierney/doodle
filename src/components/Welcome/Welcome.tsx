@@ -6,7 +6,7 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { useGame } from "../../context/GameContext";
 import GradientBtn from "../GradientBtn/GradientBtn";
 import KadoodleTextSVG from "../KadoodleTextSVG/KadoodleTextSVG";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import socket from "../../socket";
 import BackButton from "../BackButton/BackButton";
 
@@ -51,6 +51,31 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
     socket.emit("checkIfRoomExists", roomCodeInput);
   };
 
+  const roomCodeInputRef = useRef<HTMLInputElement>(null);
+  const roomCodeSubmitBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const handleEnterKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        if (roomCodeSubmitBtnRef.current) {
+          roomCodeSubmitBtnRef.current.click();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleEnterKey);
+
+    return () => window.removeEventListener("keydown", handleEnterKey);
+  }, []);
+
+  useEffect(() => {
+    if (enteringRoomCode) {
+      if (roomCodeInputRef.current) {
+        roomCodeInputRef.current.focus();
+      }
+    }
+  }, [enteringRoomCode]);
+
   return (
     <Stack align="center" justify="center" className={styles.welcomeBackground}>
       <div className={styles.backBtnContainer}>
@@ -77,6 +102,10 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
                 value={roomCodeInput}
                 onChange={(e) => setRoomCodeInput(e.target.value.toUpperCase())}
                 maxLength={4}
+                ref={roomCodeInputRef}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="characters"
               />
             </div>
             {error && (
@@ -92,6 +121,7 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
               onClick={() => handleSubmit()}
               disabled={submitBtnDisabled}
               style={{ color: "white" }}
+              ref={roomCodeSubmitBtnRef}
             >
               {isLoading ? (
                 <BiLoaderAlt
