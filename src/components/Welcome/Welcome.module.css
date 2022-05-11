@@ -4,6 +4,8 @@
     width: 100%;
     min-height: 90vh;
     padding: 5%;
+    background-image: url("../../assets/svg/paper.svg");
+    background-repeat: no-repeat;
 }
 
 .backBtnContainer {

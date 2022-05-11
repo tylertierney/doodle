@@ -1,5 +1,4 @@
 import styles from "./Welcome.module.css";
-import PaperSVG from "../PaperSVG/PaperSVG";
 import { Button, Group, Stack, Text, Title } from "@mantine/core";
 import { BiPlusCircle, BiLoaderAlt } from "react-icons/bi";
 import { BsArrowRightCircle } from "react-icons/bs";
@@ -83,7 +82,6 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
           <BackButton onClick={() => setGameStage("initial")} />
         )}
       </div>
-      <PaperSVG />
       <Stack
         align="center"
         justify="center"
