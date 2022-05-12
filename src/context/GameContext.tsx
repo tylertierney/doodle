@@ -28,6 +28,9 @@ export interface Turn {
   guesses: string[];
   active: boolean;
   possibleWords: string[];
+  pointsThisTurn: {
+    [key: string]: number;
+  };
 }
 
 export interface GameContextType {

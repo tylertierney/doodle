@@ -55,6 +55,33 @@
 .bounce:nth-child(10){
     animation-delay: 0.10s;
 }
+.bounce:nth-child(11){
+    animation-delay: 0.11s;
+}
+.bounce:nth-child(12){
+    animation-delay: 0.12s;
+}
+.bounce:nth-child(13){
+    animation-delay: 0.13s;
+}
+.bounce:nth-child(14){
+    animation-delay: 0.14s;
+}
+.bounce:nth-child(15){
+    animation-delay: 0.15s;
+}
+.bounce:nth-child(16){
+    animation-delay: 0.16s;
+}
+.bounce:nth-child(17){
+    animation-delay: 0.17s;
+}
+.bounce:nth-child(18){
+    animation-delay: 0.18s;
+}
+.bounce:nth-child(19){
+    animation-delay: 0.19s;
+}
 
 @keyframes bounce {
     0%   { transform: scale(1,1) translateY(0); }

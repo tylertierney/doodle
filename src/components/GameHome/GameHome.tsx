@@ -6,10 +6,11 @@ import ArtistInterface from "./ArtistInterface/ArtistInterface";
 import GuesserInterface from "./GuesserInterface/GuesserInterface";
 import WordSelection from "./WordSelection/WordSelection";
 import { usePeer } from "../../context/PeerContext";
+import Scorecard from "./Scorecard/Scorecard";
 
 interface GameHomeProps {
   drawingData: string;
-  stage: "waitingForPlayers" | "wordSelection" | "playing";
+  stage: "waitingForPlayers" | "wordSelection" | "playing" | "roundOver";
 }
 
 const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
@@ -47,6 +48,8 @@ const GameHome: React.FC<GameHomeProps> = ({ stage, drawingData }) => {
             )}
           </div>
         );
+      case "roundOver":
+        return <Scorecard turn={turns[turns.length - 1]} />;
     }
   };
 

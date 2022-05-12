@@ -34,7 +34,12 @@ const ArtistInterface: FC<ArtistInterfaceProps> = ({ wordToDraw }) => {
       className={styles.artistInterfaceContainer}
       data-testid="ArtistInterface"
     >
-      <Letters wordToDraw={wordToDraw} hidden={false} bounceAnimation={true} />
+      <Letters
+        wordToDraw={wordToDraw}
+        hidden={false}
+        bounceAnimation={true}
+        showTimer={true}
+      />
       <Canvas
         brushRadius={brushRadius}
         brushColor={brushColor}

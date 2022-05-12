@@ -1,0 +1,39 @@
+.scorecardContainer {
+    min-height: 440px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-image: url('../../../assets/svg/paper.svg');
+    background-repeat: no-repeat;
+    background-position: 5px;
+    flex-grow: 1;
+    flex: 1;
+    order: 2;
+}
+
+.scorecardUL {
+    list-style-type: none;
+    width: 100%;
+    font-weight: bold;
+}
+
+.scoreLI {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointDiff {
+    opacity: 0.5;
+}
+
+@media only screen and (max-width: 760px) {
+    .scorecardContainer {
+        order: 1;
+        width: 100%;
+    }
+}

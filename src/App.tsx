@@ -65,6 +65,11 @@ function App() {
     socket.on("addedPoints", (players) => {
       setPlayers(players);
     });
+    socket.on("endTurn", (turns: any) => {
+      console.log(turns);
+      setTurns(turns);
+      setGameStage("roundOver");
+    });
     socket.on("endGame", () => {
       endGame();
     });
@@ -86,6 +91,8 @@ function App() {
         return <GameHome stage="wordSelection" drawingData={drawingData} />;
       case "playing":
         return <GameHome stage="playing" drawingData={drawingData} />;
+      case "roundOver":
+        return <GameHome stage="roundOver" drawingData={drawingData} />;
       default:
         return <Welcome enteringRoomCode={false} />;
     }

@@ -44,6 +44,7 @@ const GuesserInterface: FC<GuesserInterfaceProps> = ({
         wordToDraw={wordToDraw}
         hidden={!isCorrect}
         bounceAnimation={isCorrect}
+        showTimer={true}
       />
       <ReceivingCanvas drawingData={drawingData} />
       <CanvasToolbar

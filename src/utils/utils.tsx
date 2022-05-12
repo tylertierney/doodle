@@ -44,3 +44,19 @@ export const generateRoomCode = () => {
   }
   return result;
 };
+
+export const getNumberSuffix = (number: number) => {
+  let lastNumber = String(number);
+  lastNumber = lastNumber[lastNumber.length - 1];
+
+  switch (lastNumber) {
+    case "1":
+      return "st";
+    case "2":
+      return "nd";
+    case "3":
+      return "rd";
+    default:
+      return "th";
+  }
+};
