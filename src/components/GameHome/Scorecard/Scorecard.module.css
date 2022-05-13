@@ -12,6 +12,7 @@
     flex-grow: 1;
     flex: 1;
     order: 2;
+    user-select: none;
 }
 
 .scorecardUL {

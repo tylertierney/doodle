@@ -34,6 +34,7 @@
     color: white;
     font-weight: bold;
     transform: translate(0px, 5px);
+    user-select: none;
 }
 
 .roomCode {
@@ -60,6 +61,7 @@
     align-items: center;
     gap: 1rem;
     max-width: 400px;
+    user-select: none;
 }
 
 .playerCount{

@@ -19,6 +19,7 @@
     width: 90%;
     height: 90%;
     padding: 1.6rem;
+    user-select: none;
 }
 
 .headerContainer {

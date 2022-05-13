@@ -31,7 +31,7 @@ const WordSelection: FC<WordSelectionProps> = ({ isArtist }) => {
             alignItems: "center",
           }}
         >
-          <Title>Choose a word to draw</Title>
+          <Title style={{ userSelect: "none" }}>Choose a word to draw</Title>
           <div className={styles.wordsContainer}>
             {possibleWords.map((word: string, idx: number) => {
               return (

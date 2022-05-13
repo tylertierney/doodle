@@ -9,20 +9,23 @@ interface ScorecardProps {
 }
 
 const Scorecard: React.FC<ScorecardProps> = ({ turn }) => {
-  const scoresArr = Object.entries(turn.pointsThisTurn)
-    .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
-    .map((scoreItem: [string, number], idx: number) => {
-      console.log(idx + getNumberSuffix(idx + 1));
-      return (
-        <li className={styles.scoreLI} key={idx}>
-          <span className={styles.place}>
-            {idx + 1 + getNumberSuffix(idx + 1)}
-          </span>
-          <span className={styles.nickname}>{scoreItem[0]}</span>
-          <span className={styles.pointDiff}>{`+${scoreItem[1]}`}</span>
-        </li>
-      );
-    });
+  let scoresArr: any = [];
+
+  if (turn.pointsThisTurn) {
+    scoresArr = Object.entries(turn.pointsThisTurn)
+      .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
+      .map((scoreItem: [string, number], idx: number) => {
+        return (
+          <li className={styles.scoreLI} key={idx}>
+            <span className={styles.place}>
+              {idx + 1 + getNumberSuffix(idx + 1)}
+            </span>
+            <span className={styles.nickname}>{scoreItem[0]}</span>
+            <span className={styles.pointDiff}>{`+${scoreItem[1]}`}</span>
+          </li>
+        );
+      });
+  }
 
   return (
     <div className={styles.scorecardContainer}>

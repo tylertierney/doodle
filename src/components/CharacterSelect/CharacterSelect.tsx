@@ -167,6 +167,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
                 autoPlay={true}
                 ref={userVideoRef}
                 playsInline
+                muted
               ></video>
             )}
             <Text
