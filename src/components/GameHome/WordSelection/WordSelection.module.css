@@ -1,5 +1,5 @@
 .wordSelectionBackground {
-    min-height: 440px;
+    min-height: 90vh;
     max-width: 800px;
     display: flex;
     justify-content: center;

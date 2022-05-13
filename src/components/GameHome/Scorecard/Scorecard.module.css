@@ -1,5 +1,5 @@
 .scorecardContainer {
-    min-height: 440px;
+    min-height: 90vh;
     max-width: 800px;
     display: flex;
     flex-direction: column;
