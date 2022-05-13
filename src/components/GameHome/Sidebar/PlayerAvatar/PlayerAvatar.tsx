@@ -53,7 +53,10 @@ const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
       }}
     >
       <div className={styles.playerAvatarAndName}>
-        <div className={styles.playerAvatarAndBadges}>
+        <div
+          className={styles.playerAvatarAndBadges}
+          style={{ lineHeight: "1" }}
+        >
           {player.usingMedia ? (
             <PlayerVideo
               stream={

@@ -1,9 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import styles from "./CanvasToolbar.module.css";
 import { FaTrashAlt, FaUndo, FaEraser } from "react-icons/fa";
-import { useState } from "react";
-import socket from "../../../socket";
-import { useGame } from "../../../context/GameContext";
 
 interface CanvasToolbarProps {
   brushRadius: number;
@@ -30,7 +27,6 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   setGuess,
   handleGuessSubmit,
 }) => {
-  const { currentPlayer } = useGame();
   const brushes = [6, 8, 10, 12, 14].map((radius: number, idx: number) => {
     const isSelected = radius === brushRadius;
     return (

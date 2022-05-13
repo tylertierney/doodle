@@ -31,6 +31,7 @@ export interface Turn {
   pointsThisTurn: {
     [key: string]: number;
   };
+  lastTurn: boolean;
 }
 
 export interface GameContextType {

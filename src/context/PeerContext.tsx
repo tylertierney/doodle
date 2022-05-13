@@ -7,8 +7,7 @@ import {
   useState,
 } from "react";
 import Peer from "peerjs";
-import { Player, useGame } from "./GameContext";
-import socket from "../socket";
+import { useGame } from "./GameContext";
 import { getLocalStorage } from "../utils/utils";
 
 export interface StreamsIdentifier {

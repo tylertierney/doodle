@@ -11,6 +11,7 @@ const Footer: React.FC = () => {
         <a
           href="https://tylertierney.com"
           target="_blank"
+          rel="noreferrer"
           style={{
             color: "inherit",
             textDecoration: "none",

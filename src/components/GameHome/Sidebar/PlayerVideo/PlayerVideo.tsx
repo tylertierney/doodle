@@ -10,7 +10,7 @@ const PlayerVideo: React.FC<PlayerVideoProps> = ({ stream, isMuted }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (stream != undefined) {
+    if (stream !== undefined && stream !== null) {
       renderVideo(stream, videoRef);
     }
   }, [videoRef.current, stream]);

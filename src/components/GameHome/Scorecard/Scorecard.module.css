@@ -25,12 +25,45 @@
     align-items: center;
 }
 
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 1.48rem; */
+    text-align: center;
+    font-weight: 700;
+    color: var(--lightorange);
+    margin-bottom: 1rem;
+}
+
+.titleSpans:nth-child(2) {
+    line-height: 0.9;
+}
+
+.titleAndLetters {
+    width: 90%;
+}
+
+/* .titleSpans {
+    white-space: nowrap;
+} */
+
+.titleAndUL {
+    width: 100%;
+    max-width: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .scorecardUL {
     list-style-type: none;
     width: 100%;
     font-weight: bold;
     width: 85%;
-    max-width: 260px;
+    font-size: 1.1rem;
 }
 
 .scoreLI {

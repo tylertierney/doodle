@@ -66,9 +66,12 @@ function App() {
       setPlayers(players);
     });
     socket.on("endTurn", (turns: any) => {
-      console.log(turns);
       setTurns(turns);
       setGameStage("roundOver");
+    });
+    socket.on("startTurn", (turns: any) => {
+      setTurns(turns);
+      setGameStage("wordSelection");
     });
     socket.on("endGame", () => {
       endGame();
