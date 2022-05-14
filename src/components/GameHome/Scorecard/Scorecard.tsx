@@ -32,7 +32,7 @@ const Scorecard: React.FC<ScorecardProps> = ({ turn }) => {
       });
   }
 
-  const finalScoresArr = players
+  const finalScoresArr = [...players]
     .sort((a: Player, b: Player) => {
       return b.points - a.points;
     })
