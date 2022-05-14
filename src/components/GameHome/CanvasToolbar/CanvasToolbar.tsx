@@ -27,7 +27,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   setGuess,
   handleGuessSubmit,
 }) => {
-  const brushes = [6, 8, 10, 12, 14].map((radius: number, idx: number) => {
+  const brushes = [4, 6, 8, 10, 12].map((radius: number, idx: number) => {
     const isSelected = radius === brushRadius;
     return (
       <div
@@ -97,6 +97,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
           value={guess}
           type="text"
           className={styles.guessInput}
+          enterKeyHint="go"
         />
       </form>
     </div>

@@ -28,6 +28,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    user-select: none;
 }
 
 .playerAvatarAndBadges {

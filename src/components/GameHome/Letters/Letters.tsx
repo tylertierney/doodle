@@ -35,7 +35,9 @@ const Letters: FC<LettersProps> = ({
           );
         })}
       </div>
-      {showTimer && <span style={{ minWidth: "56px" }}></span>}
+      {showTimer && (
+        <span className={styles.spacer} style={{ minWidth: "56px" }}></span>
+      )}
     </div>
   );
 };

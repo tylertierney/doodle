@@ -20,6 +20,10 @@
     -webkit-backdrop-filter: blur(1px);
 }
 
+.menuContainer:first-child {
+    min-height: 400px;
+}
+
 .wrappingContainer{
     display: flex;
     justify-content: space-around;

@@ -38,7 +38,14 @@ const Lobby: React.FC = () => {
             {players.length > 1 && <span>s</span>} in the lobby
           </Title>
           <div className={styles.waitingForPlayersMessageContainer}>
-            <Text style={{ fontSize: "1.4rem" }} align="center">
+            <Text
+              style={{
+                fontSize: "1.4rem",
+                lineHeight: 1,
+                marginBottom: "1rem",
+              }}
+              align="center"
+            >
               {message}
             </Text>
             <Loader size="xl" color="orange" variant="dots" />

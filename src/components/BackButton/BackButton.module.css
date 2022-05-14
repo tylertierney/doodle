@@ -10,6 +10,8 @@
     transition: 0.2s ease-in-out;
     border-radius: 4px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .backBtn:hover {

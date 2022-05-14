@@ -1,5 +1,5 @@
 import CanvasDraw from "react-canvas-draw";
-import { RefObject, useRef } from "react";
+import { RefObject, useRef, useState } from "react";
 import socket from "../../socket";
 import { useGame } from "../../context/GameContext";
 import { useEffect } from "react";
@@ -33,8 +33,14 @@ const Canvas: React.FC<CanvasProps> = ({
     }
   }, [canvasRef.current, currentPlayer]);
 
+  const hideBrush = window.innerWidth < 430 ? true : false;
+
   return (
-    <div className={styles.canvasContainer} ref={canvasContainerRef}>
+    <div
+      className={styles.canvasContainer}
+      ref={canvasContainerRef}
+      onMouseLeave={(e) => console.log(e)}
+    >
       <CanvasDraw
         ref={canvasRef}
         brushColor={brushColor}
@@ -46,6 +52,7 @@ const Canvas: React.FC<CanvasProps> = ({
         canvasWidth={canvasSize.width}
         canvasHeight={canvasSize.height}
         hideGrid={true}
+        hideInterface={hideBrush}
       />
       <GuessesProvider></GuessesProvider>
     </div>
