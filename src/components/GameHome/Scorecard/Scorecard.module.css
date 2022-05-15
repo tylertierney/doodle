@@ -30,24 +30,19 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    /* font-size: 1.48rem; */
     text-align: center;
     font-weight: 700;
     color: var(--lightorange);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.titleSpans:nth-child(2) {
+.titleSpans {
     line-height: 0.9;
 }
 
 .titleAndLetters {
     width: 90%;
 }
-
-/* .titleSpans {
-    white-space: nowrap;
-} */
 
 .titleAndUL {
     width: 100%;
