@@ -114,7 +114,7 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
             <GradientBtn
               fullWidth={true}
               rightIcon={
-                isLoading ? null : <BsArrowRightCircle size="1.4rem" />
+                isLoading ? null : <BsArrowRightCircle fontSize="1.4rem" />
               }
               onClick={() => handleSubmit()}
               disabled={submitBtnDisabled}
@@ -176,14 +176,14 @@ const Welcome: React.FC<WelcomeProps> = ({ enteringRoomCode }) => {
                 color="orange"
                 radius="md"
                 size="lg"
-                rightIcon={<BsArrowRightCircle size="1.4rem" />}
+                rightIcon={<BsArrowRightCircle fontSize="1.4rem" />}
                 onClick={() => setGameStage("entering_roomCode")}
               >
                 Join Game
               </Button>
               <GradientBtn
                 fullWidth={false}
-                rightIcon={<BiPlusCircle size="1.7rem" />}
+                rightIcon={<BiPlusCircle fontSize="1.7rem" />}
                 disabled={false}
                 onClick={() => setGameStage("characterSelect_creating_game")}
               >

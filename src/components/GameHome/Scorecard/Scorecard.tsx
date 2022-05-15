@@ -52,7 +52,7 @@ const Scorecard: React.FC<ScorecardProps> = ({ turn }) => {
   const submitBtnIcon = turn.lastTurn ? (
     <IoMdRefresh size="1.6rem" style={{ transform: "scaleX(-1)" }} />
   ) : (
-    <BsArrowRightCircle size="1.4rem" />
+    <BsArrowRightCircle fontSize="1.4rem" />
   );
   const title = turn.lastTurn
     ? ["game over! ", "the word was..."]

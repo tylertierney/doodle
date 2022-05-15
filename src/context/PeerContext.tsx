@@ -102,13 +102,17 @@ const PeerProvider: React.FC = ({ children }) => {
   }, [players.length, userStream]);
 
   if (userStream) {
-    micMuted
-      ? (userStream.getAudioTracks()[0].enabled = false)
-      : (userStream.getAudioTracks()[0].enabled = true);
+    if (userStream.getAudioTracks().length > 0) {
+      micMuted
+        ? (userStream.getAudioTracks()[0].enabled = false)
+        : (userStream.getAudioTracks()[0].enabled = true);
+    }
 
-    videoMuted
-      ? (userStream.getVideoTracks()[0].enabled = false)
-      : (userStream.getVideoTracks()[0].enabled = true);
+    if (userStream.getVideoTracks().length > 0) {
+      videoMuted
+        ? (userStream.getVideoTracks()[0].enabled = false)
+        : (userStream.getVideoTracks()[0].enabled = true);
+    }
   }
 
   const ctx: PeerContextType = {

@@ -58,6 +58,7 @@ const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
           style={{ lineHeight: "1" }}
         >
           {player.usingMedia ? (
+            // && streams[player.peerId].getVideoTracks().length > 0
             <PlayerVideo
               stream={
                 player.id === currentPlayer.id
@@ -65,6 +66,7 @@ const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
                   : streams[player.peerId]
               }
               isMuted={player.id === currentPlayer.id ? true : false}
+              selectedCharacter={player.selectedCharacter}
             />
           ) : (
             <img

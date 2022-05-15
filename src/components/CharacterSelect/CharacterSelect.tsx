@@ -82,20 +82,36 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
   );
 
   const getUserMedia = () => {
+    let devicesObj = {
+      video: false,
+      audio: false,
+    };
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream: MediaStream) => {
-        setUserStream(stream);
-        setUsingMedia(true);
-        renderVideo(stream, userVideoRef);
-      })
-      .catch((err) => {
-        setUsingMedia(false);
-        if (err.name === "NotFoundError") {
-          setErrorText(
-            "Requested media device not found. Check your camera and microphone, or use an avatar instead."
-          );
-        }
+      .enumerateDevices()
+      .then((devices: MediaDeviceInfo[]) => {
+        devices.forEach((device: MediaDeviceInfo) => {
+          if (device.kind === "audioinput") {
+            devicesObj.audio = true;
+          }
+          if (device.kind === "videoinput") {
+            devicesObj.video = true;
+          }
+        });
+        navigator.mediaDevices
+          .getUserMedia(devicesObj)
+          .then((stream: MediaStream) => {
+            setUserStream(stream);
+            setUsingMedia(true);
+            renderVideo(stream, userVideoRef);
+          })
+          .catch((err) => {
+            setUsingMedia(false);
+            if (err.name === "NotFoundError") {
+              setErrorText(
+                "Requested media device not found. Check your camera and microphone, or use an avatar instead."
+              );
+            }
+          });
       });
   };
 
@@ -208,7 +224,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ existingGame }) => {
         )}
         <GradientBtn
           fullWidth={false}
-          rightIcon={<BsArrowRightCircle size="1.4rem" />}
+          rightIcon={<BsArrowRightCircle fontSize="1.4rem" />}
           onClick={() => handleSubmit()}
           style={{ marginLeft: "auto" }}
           disabled={false}

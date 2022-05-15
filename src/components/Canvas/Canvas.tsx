@@ -36,11 +36,7 @@ const Canvas: React.FC<CanvasProps> = ({
   const hideBrush = window.innerWidth < 430 ? true : false;
 
   return (
-    <div
-      className={styles.canvasContainer}
-      ref={canvasContainerRef}
-      onMouseLeave={(e) => console.log(e)}
-    >
+    <div className={styles.canvasContainer} ref={canvasContainerRef}>
       <CanvasDraw
         ref={canvasRef}
         brushColor={brushColor}
