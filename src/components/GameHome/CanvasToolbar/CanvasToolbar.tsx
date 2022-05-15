@@ -50,7 +50,7 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
     "gold",
     "#00c4ff",
     "orange",
-    "purple",
+    // "purple",
     "#6158df",
     "brown",
     "black",
@@ -85,7 +85,15 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
           <FaTrashAlt fontSize="1.5rem" />
         </button>
       </div>
-      <div className={styles.paletteContainer}>{colors}</div>
+      <div className={styles.paletteContainer}>
+        {colors}
+        <input
+          type="color"
+          value={brushColor}
+          onChange={(e) => setBrushColor(e.target.value)}
+          className={styles.colorInput}
+        />
+      </div>
     </>
   );
 
