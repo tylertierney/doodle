@@ -17,11 +17,21 @@
 
 @media only screen and (max-width: 440px) {
     .timer {
-        font-size: 1.7rem;
+        font-size: 24px;
         min-width: 46px;
         width: 46px;
         height: 46px;
         line-height: 44px;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .timer {
+        font-size: 20px;
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        line-height: 38px;
     }
 }
 

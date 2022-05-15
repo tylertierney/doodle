@@ -5,7 +5,7 @@ import CharacterSelect from "./components/CharacterSelect/CharacterSelect";
 import GameHome from "./components/GameHome/GameHome";
 import Navbar from "./components/Navbar/Navbar";
 import Welcome from "./components/Welcome/Welcome";
-import { Turn, useGame } from "./context/GameContext";
+import { Player, Turn, useGame } from "./context/GameContext";
 import { usePeer } from "./context/PeerContext";
 import socket from "./socket";
 import Footer from "./components/Footer/Footer";
@@ -45,9 +45,10 @@ function App() {
       setRoomCode(roomCode);
       setPlayers(players);
     });
-    socket.on("startGame", (turns: Turn[]) => {
+    socket.on("startGame", (turns: Turn[], players: Player[]) => {
       if (currentPlayer) setGameStage("wordSelection");
       setTurns(turns);
+      setPlayers(players);
     });
     socket.on("selectWord", (turns: Turn[]) => {
       setTurns(turns);

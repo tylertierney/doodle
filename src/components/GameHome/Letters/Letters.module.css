@@ -23,6 +23,27 @@
     min-width: 1.25rem;
 }
 
+.spacer {
+    min-width: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+
+.roundText {
+    font-weight: bold;
+    font-size: 1rem;
+    color: rgb(157, 157, 157);
+    line-height: 0.8;
+}
+
+.roundNumber {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 @media only screen and (max-width: 440px) {
     .letter {
         height: 2.2rem;
@@ -30,8 +51,20 @@
         min-width: 1rem;
     }
 
+    .lettersContainer {
+        gap: 0.2rem;
+    }
+
     .spacer {
         min-width: 46px;
+    }
+
+    .roundText {
+        font-size: 0.9rem;
+    }
+
+    .roundNumber {
+        font-size: 0.9rem;
     }
 }
 

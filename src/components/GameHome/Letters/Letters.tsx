@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useGame } from "../../../context/GameContext";
 import Timer from "../Timer/Timer";
 import styles from "./Letters.module.css";
 
@@ -15,6 +16,7 @@ const Letters: FC<LettersProps> = ({
   bounceAnimation,
   showTimer,
 }) => {
+  const { turns, players } = useGame();
   if (!wordToDraw) return null;
 
   return (
@@ -36,7 +38,23 @@ const Letters: FC<LettersProps> = ({
         })}
       </div>
       {showTimer && (
-        <span className={styles.spacer} style={{ minWidth: "56px" }}></span>
+        <span
+          className={styles.spacer}
+          style={{
+            minWidth: "56px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <span className={styles.roundText}>round</span>
+          <span className={styles.roundNumber}>
+            {turns.length}
+            &nbsp;/&nbsp;
+            {players.length}
+          </span>
+        </span>
       )}
     </div>
   );
