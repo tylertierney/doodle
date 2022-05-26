@@ -16,6 +16,8 @@ const Scorecard: React.FC<ScorecardProps> = ({ turn }) => {
   const { currentPlayer, roomCode, players } = useGame();
   let scoresArr: any = [];
 
+  if (!turn) return null;
+
   if (turn.pointsThisTurn) {
     scoresArr = Object.entries(turn.pointsThisTurn)
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])

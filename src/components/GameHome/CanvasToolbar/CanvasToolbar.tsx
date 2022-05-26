@@ -45,15 +45,14 @@ const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
 
   const colors = [
     "#ff604c",
-    "blue",
+    "#0000ff",
     "#26eca8",
-    "gold",
+    "#ffd700",
     "#00c4ff",
-    "orange",
-    // "purple",
+    "#ffa500",
     "#6158df",
-    "brown",
-    "black",
+    "#a52a2a",
+    "#000000",
   ].map((color: string, idx: number) => {
     const isSelected = color === brushColor;
     return (

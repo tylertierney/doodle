@@ -58,7 +58,6 @@ const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
           style={{ lineHeight: "1" }}
         >
           {player.usingMedia ? (
-            // && streams[player.peerId].getVideoTracks().length > 0
             <PlayerVideo
               stream={
                 player.id === currentPlayer.id
@@ -93,6 +92,11 @@ const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
             backgroundColor: "white",
             padding: "0 0.3rem",
             borderRadius: "6px",
+            maxWidth: "120px",
+            overflow: "hidden",
+            overflowWrap: "break-word",
+            textAlign: "center",
+            lineHeight: 1,
           }}
         >
           {player.nickname}
