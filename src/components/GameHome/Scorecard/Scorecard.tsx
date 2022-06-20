@@ -56,6 +56,7 @@ const Scorecard: React.FC<ScorecardProps> = ({ turn }) => {
   ) : (
     <BsArrowRightCircle fontSize="1.4rem" />
   );
+  console.log(turn.lastTurn);
   const title = turn.lastTurn
     ? ["game over! ", "the word was..."]
     : ["time's up! ", "the word was..."];

@@ -77,6 +77,7 @@ const TabsMenu: React.FC<TabsMenuProps> = ({
                       ? "2px 2px 14px 1px rgba(0, 0, 0, 0.3)"
                       : "none",
                   }}
+                  alt="Avatar"
                 />
               );
             })}

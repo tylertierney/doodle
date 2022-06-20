@@ -1,5 +1,5 @@
 import CanvasDraw from "react-canvas-draw";
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useRef } from "react";
 import socket from "../../socket";
 import { useGame } from "../../context/GameContext";
 import { useEffect } from "react";

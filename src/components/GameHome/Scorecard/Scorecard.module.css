@@ -46,7 +46,8 @@
 
 .titleAndUL {
     width: 100%;
-    max-width: 240px;
+    min-width: 280px;
+    max-width: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,7 +58,6 @@
     list-style-type: none;
     width: 100%;
     font-weight: bold;
-    width: 85%;
     font-size: 1.1rem;
 }
 
